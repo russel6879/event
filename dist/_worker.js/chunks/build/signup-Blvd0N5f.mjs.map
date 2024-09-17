@@ -1,1 +1,0 @@
-{"version":3,"file":"signup-Blvd0N5f.mjs","sources":["../../../../pages/signup.vue"],"sourcesContent":null,"names":["formData","ref","name","email","password","address","phone","description","website"],"mappings":"wSAsMA,MAAMA,EAAWC,EAAI,CACnBC,KAAM,GAENC,MAAO,GACPC,SAAU,GACVC,QAAS,GACTC,MAAO,GACPC,YAAa,GACbC,QAAS"}
