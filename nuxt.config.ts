@@ -3,13 +3,11 @@ export default defineNuxtConfig({
 
   ssr: true,
   
-  modules: [
-    'nuxt-swiper'
-  ],
+  modules: ['nuxt-swiper', "@nuxthub/core"],
 
   runtimeConfig: {
     public: {
-      baseURL: 'http://127.0.0.1:8000',
+      baseURL: 'https://event.findthexpo.com/',
     },
   },
   devtools: {

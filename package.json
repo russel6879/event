@@ -12,6 +12,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@ckeditor/ckeditor5-vue": "^5.1.0",
+    "@nuxthub/core": "^0.7.18",
     "@nuxtjs/axios": "^5.13.6",
     "@popperjs/core": "^2.11.8",
     "@vueup/vue-quill": "^1.2.0",
