@@ -1,0 +1,33 @@
+# You can keep your repository small and manageable with a .gitignore file.
+# Prevent build artifacts, large binary files, and other large file types
+# such as log files, media files, and executables from slowing down your workflow.
+#
+# If you need to keep large files in Bitbucket, consider introducing
+# Git Large File Storage (Git LFS) as part of your workflow.
+#
+
+/node_modules
+/public/hot
+/public/uploads/*
+/public/build/*
+/public/build/main.css
+/public/build/main.js
+/public/build/main.map
+/public/storage
+/resources/views/theme/dummp.blade.php
+/storage/*.key
+/node_modules
+/old
+/vendor
+vendor
+/.idea
+/.cache/*.key
+/.vscode
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+.phpunit.result.cache
+/nbproject/private/

@@ -1,0 +1,1 @@
+import{_ as e}from"./BghaiIeg.js";import{B as o,C as t,N as c}from"./zhf3nTjy.js";const s={},a=c("h1",null,"Welcome to the aboutpage",-1),n=[a];function r(_,l){return o(),t("div",null,n)}const i=e(s,[["render",r]]);export{i as default};
