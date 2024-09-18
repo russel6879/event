@@ -1,7 +1,10 @@
 [build]
-  publish = "dist"
   command = "npm run build"
+  publish = ".output/public" # This is where your static files will be generated
+  functions = ".netlify/functions" # Netlify Functions directory for SSR
 
-[dev]
-  command = "npm run dev"
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
 
