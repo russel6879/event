@@ -1,0 +1,2 @@
+import{_ as e}from"./server.mjs";import{O as o,v as s}from"../routes/renderer.mjs";import"../runtime.mjs";import"node:async_hooks";import"../virtual/_commonjsHelpers.mjs";const t={};const r=t.setup;t.setup=(e,o)=>{const t=s();return(t.modules||(t.modules=new Set)).add("pages/about.vue"),r?r(e,o):void 0};const m=e(t,[["ssrRender",function(e,s,t,r){s(`<div${o(r)}><h1>Welcome to the aboutpage</h1></div>`)}]]);export{m as default};
+//# sourceMappingURL=about-DYaMdx4O.mjs.map
