@@ -130,6 +130,25 @@ export default {
       throw error; // Re-throw the error so it can be handled where the method is called
     }
   },
+  async searchEvents(params) {
+  
+    try {
+      const response = await apiClient.get('event-search', {
+        params: {
+          query: params.query,
+          country: params.country,
+          category: params.category,
+          page: params.page, // Include the page parameter
+        },
+      });
+ 
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching events `, error);
+      throw error; // Re-throw the error so it can be handled where the method is called
+    }
+  },
+
   async deleteEvent(eventId) {
     try {
         const token = localStorage.getItem('access_token');

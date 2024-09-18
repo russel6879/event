@@ -1,8 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-
   ssr: true,
-  
   modules: ['nuxt-swiper', "@nuxthub/core"],
 
   runtimeConfig: {
@@ -10,6 +8,7 @@ export default defineNuxtConfig({
       baseURL: 'https://event.findthexpo.com/',
     },
   },
+
   devtools: {
     enabled: true,
 
@@ -17,14 +16,12 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
-  
- 
+
   vite: {
     optimizeDeps: {
       include: ['axios'], // Ensure axios is included in optimizeDeps
     },
   },
-
 
   app: {
     head: {
@@ -71,5 +68,7 @@ export default defineNuxtConfig({
       ]
 
     }
-  }
+  },
+
+  compatibilityDate: '2024-09-18'
 })

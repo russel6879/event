@@ -3,26 +3,20 @@
     <div class="overlay"></div>
     <div class="container">
       <div class="breadcrumb-content text-center">
-        <h2 class="sec__title text-white mb-3">Listings</h2>
+        <h2 class="sec__title text-white mb-3">Search Results</h2>
         <ul class="bread-list">
           <li><NuxtLink to="/">home</NuxtLink></li>
-          <li>listings</li>
-          <li>{{ categoryName }}</li>
+          <li>Search Results for "{{ $route.query.query }}"</li>
         </ul>
       </div>
-    </div>
-    <div class="bread-svg">
-      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-        <path d="M-4.22,89.30 C280.19,26.14 324.21,125.81 511.00,41.94 L500.00,150.00 L0.00,150.00 Z"></path>
-      </svg>
     </div>
   </section>
 
   <section class="card-area section--padding pt-0">
     <div class="container">
-      <div class="row mt-5 d-flex">
+      <div class="row mt-5 d-flex" v-if="events.data.length">
         <div class="col-lg-4 col-md-6" v-for="(event, index) in events.data" :key="index">
-              <NuxtLink  :to="`/listing-details/${event.slug}`">
+                <NuxtLink  :to="`/listing-details/${event.slug}`">
           <div class="card mb-0 hover-y">
             <a class="card-image">
               <img :src="`${$config.public.baseURL}/` + event.featured_photo" class="card-img-top" alt="Event Image" />
@@ -33,23 +27,9 @@
               }">{{ event.event_type }}</span>
             </a>
             <div class="card-body position-relative">
-              <a class="author-img">
-                <img :src="`${$config.public.baseURL}/` + event.user.profile_image" alt="Author Image" />
-              </a>
-              <div class="category-container">
-                <div v-for="(category, index) in event.category_names.slice(0, 2)" :key="index" class="category-item">
-                  <a href="#" class="card-cat">
-                    <span class="fal fa-tag icon-element icon-element-sm"></span>
-                    {{ category }}
-                  </a>
-                </div>
-              </div>
-              <div class="d-flex align-items-center mb-1">
-                <h4 class="card-title mb-0">
-                  <a>{{ event.title }}</a>
-                </h4>
-                <i class="fa fa-check-circle ms-1 text-success" data-bs-toggle="tooltip" data-placement="top" title="Claimed"></i>
-              </div>
+              <h4 class="card-title mb-0">
+                <a>{{ event.title }}</a>
+              </h4>
               <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
               <ul class="info-list mt-3">
                 <li>
@@ -63,9 +43,11 @@
               </ul>
             </div>
           </div>
-              </NuxtLink>
+            </NuxtLink>
         </div>
       </div>
+
+      <!-- Pagination Links -->
       <nav aria-label="Page navigation example" class="mt-5">
         <ul class="pagination justify-content-center pagination-list">
           <li class="page-item" :class="{ disabled: !events.prev_page_url }">
@@ -90,33 +72,39 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted, watch, nextTick, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import eventService from '@/services/eventService'; // Adjust the path based on your project structure
 
-const events = ref({ data: [], prev_page_url: null, next_page_url: null, current_page: 1, last_page: 1 });
-const categoryName = ref('');
-const route = useRoute(); // Use to access the dynamic route parameter
+const route = useRoute();
+const router = useRouter();
 
-const getCategoryEvents = async (page = 1) => {
+const events = ref({ data: [], prev_page_url: null, next_page_url: null, current_page: 1, last_page: 1 });
+
+// Fetch data from the API
+const getSearchResults = async (page = 1) => {
   try {
-    const categoryId = route.params.id; // Get the category ID from the URL
-    const data = await eventService.getEventsByCategory(categoryId, page); // Fetch events by category and page
-    events.value = data.data; // Update the events object with API response
-    categoryName.value = data.category_name; // Assuming API returns category name
+    const params = {
+      query: route.query.query,
+      country: route.query.country,
+      category: route.query.category,
+      page: page,
+    };
+    const data = await eventService.searchEvents(params);
+    events.value = data.data;
   } catch (error) {
-    console.error('Error fetching category events:', error);
+    console.error('Error fetching search results:', error);
   }
 };
 
-// Fetch events on mount
+// Fetch results on mount
 onMounted(() => {
-  getCategoryEvents();
+  getSearchResults();
 });
 
 // Watch for route changes (e.g., page changes)
 watch(() => route.query.page, (newPage) => {
-  getCategoryEvents(Number(newPage) || 1);
+  getSearchResults(Number(newPage) || 1);
 });
 
 // Calculate total pages
@@ -127,36 +115,15 @@ const totalPages = computed(() => {
 const changePage = (page) => {
   if (page < 1 || page > events.value.last_page) return;
   // Update the route query parameters
-  route.query.page = page;
-  getCategoryEvents(page);
-   nextTick(() => {
+  router.push({
+    name: 'search-results',
+    query: {
+      ...route.query,
+      page,
+    },
+  });
+  nextTick(() => {
     window.scrollTo(0, 0);
   });
 };
 </script>
-
-<style scoped>
-.category-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
-  gap: 8px; /* Adds space between items */
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-}
-
-.card-cat {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  text-decoration: none;
-  color: #333;
-}
-
-.icon-element {
-  margin-right: 8px;
-}
-/* Add your custom styles here */
-</style>

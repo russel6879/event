@@ -22,11 +22,12 @@
           >
             <div class="card">
               <div class="card-body row pb-0">
-                <div class="col-lg-3 pe-lg-0">
+                <div class="col-lg-4 pe-lg-0">
                   <div class="form-group">
                     <span class="fal fa-search form-icon"></span>
                     <input
                       class="form-control form--control"
+                      v-model="searchQuery"
                       type="text"
                       placeholder="What are you looking for?"
                     />
@@ -36,42 +37,35 @@
                 <div class="col-lg-3 pe-lg-0">
                   <div class="form-group">
                     <span class="fal fa-map-marker-alt form-icon"></span>
-                    <input
-                      class="form-control form--control"
-                      type="text"
-                      placeholder="Location"
-                    />
+                 <select class="form-control form--control" v-model="selectedCountry">
+                  <option value="" disabled>Select a Country</option>
+                  <option v-for="country in countries" :key="country.id" :value="country.id">
+                    {{ country.name }}
+                  </option>
+                </select>
                   </div>
                   <!-- end form-group -->
                 </div>
                 <!-- end col-lg-3 -->
-                <div class="col-lg-2 pe-lg-0">
-                  <div class="form-group select2-container-wrapper">
-                    <select
-                      class="select-picker"
-                      data-width="100%"
-                      data-size="5"
-                    >
-                      <option value>Select a Category</option>
-                      <option value="1">Outdoor Activities</option>
-                      <option value="2">Hotels</option>
-                      <option value="2">Cinemas</option>
-                      <option value="3">Nightlife</option>
-                      <option value="4">Bars</option>
-                      <option value="5">Clubs</option>
-                      <option value="6">Salons</option>
-                      <option value="7">Event</option>
-                    </select>
+                <div class="col-lg-3 pe-lg-0">
+                  <div class="form-group ">
+                     <span class="fal fa-tag form-icon"></span>
+                  <select class="form-control form--control" v-model="selectedCategory">
+                  <option value="" disabled>Select a Category</option>
+                  <option v-for="category in searchbarCategories" :key="category.id" :value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
                   </div>
                   <!-- end form-group -->
                 </div>
                 <!-- end col-lg-2 -->
-                <div class="col-lg-2 pe-lg-0">
+                <div class="col-lg-3 pe-lg-0 d-none">
                   <div class="form-group">
                     <span class="fal fa-calendar-alt form-icon"></span>
                     <input
                       class="form-control form--control date-picker"
-                      type="text"
+                      type="date"
                       placeholder="Date"
                     />
                   </div>
@@ -80,9 +74,9 @@
                 <!-- end col-lg-2 -->
                 <div class="col-lg-2">
                   <div class="form-group">
-                    <button class="theme-btn border-0 w-100" type="submit">
-                      Search
-                    </button>
+                      <button class="theme-btn border-0 w-100" @click="handleSearch" type="button">
+                  Search
+                </button>
                   </div>
                   <!-- end form-group -->
                 </div>
@@ -392,10 +386,15 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 import { ref, onMounted } from 'vue'; // Import ref and onMounted from Vue
 import eventService from '@/services/eventService'; // Adjust the path based on your project structure
-
+import { useRouter } from 'vue-router';
+const countries = ref([]);
+const searchQuery = ref('');
+const router = useRouter();
 const events = ref([]);
 const categories = ref([]);
-
+const searchbarCategories = ref([]);
+const selectedCountry = ref('');
+const selectedCategory = ref('');
 const getCategories = async () => {
   try {
     const data = await eventService.getHomePageCategories(); // Adjust this method if needed
@@ -415,11 +414,42 @@ const getEvents = async () => {
     // Handle error as needed
   }
 };
+// Fetch countries dynamically
+const fetchCountries = async () => {
+  try {
+    countries.value = await eventService.getCountries();
+  } catch (error) {
+    console.error('Error fetching countries:', error);
+  }
+};
 
+// Fetch categories dynamically
+const fetchSearchbarCategories = async () => {
+  try {
+    searchbarCategories.value = await eventService.getCategories();
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+};
+
+const handleSearch = () => {
+  const searchParams = {
+    query: searchQuery.value,
+    country: selectedCountry.value,
+    category: selectedCategory.value,
+    page:1
+  };
+  
+  router.push({ name: 'search-results', query: searchParams });
+};
 // Fetch events when component is mounted
+
+
 onMounted(() => {
   getEvents();
     getCategories();
+   fetchSearchbarCategories();
+   fetchCountries();
 
 });
 

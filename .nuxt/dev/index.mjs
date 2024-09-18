@@ -117,7 +117,7 @@ const _inlineRuntimeConfig = {
     "projectUrl": "",
     "projectSecretKey": "",
     "url": "https://admin.hub.nuxt.com",
-    "projectKey": "d-quiknew-8gii",
+    "projectKey": "",
     "userToken": "user_nrrsJP5wJjyMKsNAGavtBt3JrCj8sn",
     "remote": "",
     "remoteManifest": "",
