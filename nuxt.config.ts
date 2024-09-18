@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     preset: 'netlify',
   },
   ssr: true,
-  modules: ['nuxt-swiper', "@nuxthub/core"],
+  modules: ['nuxt-swiper'],
 
   runtimeConfig: {
     public: {

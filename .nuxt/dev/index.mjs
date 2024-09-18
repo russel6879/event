@@ -3,32 +3,26 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { mkdirSync } from 'node:fs';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, fetchWithEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, createError, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, handleCors, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, sendNoContent, setHeader, assertMethod, readFormData, getValidatedRouterParams, getValidatedQuery, getHeader, getRequestWebStream, readValidatedBody, getResponseStatusText } from 'file://D:/quiknew/node_modules/h3/dist/index.mjs';
-import { createFetch as createFetch$1, Headers as Headers$1, ofetch } from 'file://D:/quiknew/node_modules/ofetch/dist/node.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file://D:/quiknew/node_modules/ufo/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file://D:/quiknew/node_modules/unstorage/dist/index.mjs';
-import httpDriver from 'file://D:/quiknew/node_modules/unstorage/drivers/http.mjs';
-import cloudflareKVBindingDriver from 'file://D:/quiknew/node_modules/unstorage/drivers/cloudflare-kv-binding.mjs';
-import mime from 'file://D:/quiknew/node_modules/mime/dist/src/index.js';
-import { z } from 'file://D:/quiknew/node_modules/zod/lib/index.mjs';
-import defu, { defuFn, defu as defu$1 } from 'file://D:/quiknew/node_modules/defu/dist/defu.mjs';
-import { randomUUID } from 'file://D:/quiknew/node_modules/uncrypto/dist/crypto.node.mjs';
-import { parse } from 'file://D:/quiknew/node_modules/pathe/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, fetchWithEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, createError, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getRouterParam, getQuery as getQuery$1, readBody, getResponseStatusText } from 'file://D:/quiknew/node_modules/h3/dist/index.mjs';
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file://D:/quiknew/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { stringify, uneval } from 'file://D:/quiknew/node_modules/devalue/index.js';
 import destr from 'file://D:/quiknew/node_modules/destr/dist/index.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file://D:/quiknew/node_modules/ufo/dist/index.mjs';
 import { renderToString } from 'file://D:/quiknew/node_modules/vue/server-renderer/index.mjs';
 import { propsToString, renderSSRHead } from 'file://D:/quiknew/node_modules/@unhead/ssr/dist/index.mjs';
+import { createFetch as createFetch$1, Headers as Headers$1 } from 'file://D:/quiknew/node_modules/ofetch/dist/node.mjs';
 import { createCall, createFetch } from 'file://D:/quiknew/node_modules/unenv/runtime/fetch/index.mjs';
 import { createHooks } from 'file://D:/quiknew/node_modules/hookable/dist/index.mjs';
 import { klona } from 'file://D:/quiknew/node_modules/klona/dist/index.mjs';
 import { snakeCase } from 'file://D:/quiknew/node_modules/scule/dist/index.mjs';
+import defu, { defuFn } from 'file://D:/quiknew/node_modules/defu/dist/defu.mjs';
 import { hash } from 'file://D:/quiknew/node_modules/ohash/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file://D:/quiknew/node_modules/unstorage/dist/index.mjs';
 import unstorage_47drivers_47fs from 'file://D:/quiknew/node_modules/unstorage/drivers/fs.mjs';
 import { toRouteMatcher, createRouter } from 'file://D:/quiknew/node_modules/radix3/dist/index.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { getContext } from 'file://D:/quiknew/node_modules/unctx/dist/index.mjs';
 import { consola } from 'file://D:/quiknew/node_modules/consola/dist/index.mjs';
+import { getContext } from 'file://D:/quiknew/node_modules/unctx/dist/index.mjs';
 import { captureRawStackTrace, parseRawStackTrace } from 'file://D:/quiknew/node_modules/errx/dist/index.js';
 import { isVNode, version, unref } from 'file://D:/quiknew/node_modules/vue/index.mjs';
 import { createServerHead as createServerHead$1, CapoPlugin } from 'file://D:/quiknew/node_modules/unhead/dist/index.mjs';
@@ -95,9 +89,6 @@ const _inlineRuntimeConfig = {
       "/__nuxt_error": {
         "cache": false
       },
-      "/api/_hub/**": {
-        "csurf": false
-      },
       "/_nuxt/builds/meta/**": {
         "headers": {
           "cache-control": "public, max-age=31536000, immutable"
@@ -112,29 +103,6 @@ const _inlineRuntimeConfig = {
   },
   "public": {
     "baseURL": "https://event.findthexpo.com/"
-  },
-  "hub": {
-    "projectUrl": "",
-    "projectSecretKey": "",
-    "url": "https://admin.hub.nuxt.com",
-    "projectKey": "",
-    "userToken": "user_nrrsJP5wJjyMKsNAGavtBt3JrCj8sn",
-    "remote": "",
-    "remoteManifest": "",
-    "dir": ".data/hub",
-    "ai": false,
-    "analytics": false,
-    "blob": false,
-    "browser": false,
-    "cache": false,
-    "database": false,
-    "kv": false,
-    "version": "0.7.18",
-    "env": "production",
-    "openapi": false,
-    "bindings": {
-      "hyperdrive": {}
-    }
   }
 };
 const envOptions = {
@@ -636,11 +604,6 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-const nitroAsyncContext = getContext("nitro-app", {
-  asyncContext: true,
-  AsyncLocalStorage: AsyncLocalStorage 
-});
-
 const script = `
 if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
   Object.defineProperty(window, '__NUXT_DEVTOOLS_TIME_METRIC__', {
@@ -746,9 +709,10 @@ function onConsoleLog(callback) {
   consola.wrapConsole();
 }
 
-function defineNitroPlugin(def) {
-  return def;
-}
+const plugins = [
+  _KYk1SOLZx6,
+_Ele7XerBSK
+];
 
 const scheduledTasks = false;
 
@@ -818,31 +782,6 @@ function defineRenderHandler(handler) {
   });
 }
 
-function buildAssetsDir() {
-  return useRuntimeConfig().app.buildAssetsDir;
-}
-function buildAssetsURL(...path) {
-  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
-}
-function publicAssetsURL(...path) {
-  const app = useRuntimeConfig().app;
-  const publicBase = app.cdnURL || app.baseURL;
-  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
-}
-
-const hubHooks = createHooks();
-
-const _NpTu6WdA2k = defineNitroPlugin(async () => {
-  await globalThis.__env__;
-  await hubHooks.callHookParallel("bindings:ready");
-});
-
-const plugins = [
-  _KYk1SOLZx6,
-_Ele7XerBSK,
-_NpTu6WdA2k
-];
-
 const errorHandler = (async function errorhandler(error, event) {
   const { stack, statusCode, statusMessage, message } = normalizeError(error);
   const errorObject = {
@@ -903,28 +842,10 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
-const _X62dZ6 = eventHandler((event) => {
-  handleCors(event, {
-    methods: "*",
-    origin: [
-      "https://admin.hub.nuxt.com"
-    ]
-  });
-});
-
-const _lazy_mIhqPC = () => Promise.resolve().then(function () { return ____feature_$1; });
-const _lazy_0aBaZp = () => Promise.resolve().then(function () { return index_head$1; });
-const _lazy_2j1fdb = () => Promise.resolve().then(function () { return manifest_get$1; });
-const _lazy_Gx1kyP = () => Promise.resolve().then(function () { return openapi_get$1; });
 const _lazy_WXz71c = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/api/_hub/**:feature', handler: _lazy_mIhqPC, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_hub', handler: _lazy_0aBaZp, lazy: true, middleware: false, method: "head" },
-  { route: '/api/_hub/manifest', handler: _lazy_2j1fdb, lazy: true, middleware: false, method: "get" },
-  { route: '/api/_hub/openapi', handler: _lazy_Gx1kyP, lazy: true, middleware: false, method: "get" },
   { route: '/__nuxt_error', handler: _lazy_WXz71c, lazy: true, middleware: false, method: undefined },
-  { route: '/api/_hub', handler: _X62dZ6, lazy: false, middleware: true, method: undefined },
   { route: '/**', handler: _lazy_WXz71c, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -1029,13 +950,6 @@ function createNitroApp() {
     }
   }
   h3App.use(config.app.baseURL, router.handler);
-  {
-    const _handler = h3App.handler;
-    h3App.handler = (event) => {
-      const ctx = { event };
-      return nitroAsyncContext.callAsync(ctx, () => _handler(event));
-    };
-  }
   const app = {
     hooks,
     h3App,
@@ -1127,816 +1041,6 @@ const errorDev = /*#__PURE__*/Object.freeze({
   template: template$1
 });
 
-const featureMessages = {
-  ai: [
-    "NuxtHub AI is not enabled, set `hub.ai = true` in your `nuxt.config.ts`"
-  ].join("\n"),
-  analytics: [
-    "NuxtHub Analytics is not enabled, set `hub.analytics = true` in your `nuxt.config.ts`"
-  ].join("\n"),
-  blob: [
-    "NuxtHub Blob is not enabled, set `hub.blob = true` in your `nuxt.config.ts`",
-    "Read more at `https://hub.nuxt.com/docs/features/blob`"
-  ].join("\n"),
-  cache: [
-    "NuxtHub Cache is not enabled, set `hub.cache = true` in your `nuxt.config.ts`"
-  ].join("\n"),
-  database: [
-    "NuxtHub Database is not enabled, set `hub.database = true` in your `nuxt.config.ts`",
-    "Read more at `https://hub.nuxt.com/docs/features/database`"
-  ].join("\n"),
-  kv: [
-    "NuxtHub KV is not enabled, set `hub.kv = true` in your `nuxt.config.ts`",
-    "Read more at `https://hub.nuxt.com/docs/features/kv`"
-  ].join("\n")
-};
-function requireNuxtHubFeature(feature) {
-  const hub = useRuntimeConfig().hub;
-  if (!hub[feature]) {
-    {
-      console.error(featureMessages[feature]);
-    }
-    throw createError({
-      statusCode: 422,
-      statusMessage: "Unprocessable Entity",
-      message: featureMessages[feature]
-    });
-  }
-  if (hub.remote && !hub.remoteManifest?.features?.[feature] && !hub.remoteManifest?.storage?.[feature]) {
-    const message = `NuxtHub \`${feature}\` is not enabled in the remote project. Deploy a new version with \`${feature}\` enabled and try again.
-Read more at \`https://hub.nuxt.com/docs/getting-started/remote-storage\``;
-    {
-      console.error(message);
-    }
-    throw createError({
-      statusCode: 422,
-      statusMessage: "Unprocessable Entity",
-      message
-    });
-  }
-}
-
-const ____feature_ = eventHandler((event) => {
-  const [feature] = (event.context.params?.feature || "").split("/");
-  requireNuxtHubFeature(feature);
-  throw createError({
-    statusCode: 404,
-    message: `Not found`
-  });
-});
-
-const ____feature_$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: ____feature_
-});
-
-async function requireNuxtHubAuthorization(event) {
-  {
-    return;
-  }
-}
-
-const index_head = eventHandler(async (event) => {
-  await requireNuxtHubAuthorization();
-  return sendNoContent(event);
-});
-
-const index_head$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: index_head
-});
-
-let _ai;
-function hubAI() {
-  requireNuxtHubFeature("ai");
-  if (_ai) {
-    return _ai;
-  }
-  const hub = useRuntimeConfig().hub;
-  const binding = process.env.AI || globalThis.__env__?.AI || globalThis.AI;
-  if (hub.remote && hub.projectUrl && !binding) {
-    _ai = proxyHubAI(hub.projectUrl, hub.projectSecretKey || hub.userToken);
-    return _ai;
-  }
-  if (binding) {
-    {
-      _ai = {
-        async run(model, params) {
-          if (!hub.projectKey) {
-            throw createError({
-              statusCode: 500,
-              message: "Missing hub.projectKey variable to use hubAI()"
-            });
-          }
-          if (!hub.userToken) {
-            throw createError({
-              statusCode: 500,
-              message: "Missing hub.userToken variable to use hubAI()"
-            });
-          }
-          return $fetch(`/api/projects/${hub.projectKey}/ai/run`, {
-            baseURL: hub.url,
-            method: "POST",
-            headers: {
-              authorization: `Bearer ${hub.userToken}`
-            },
-            body: { model, params },
-            responseType: params?.stream ? "stream" : void 0
-          }).catch(handleProxyError$1);
-        }
-      };
-    }
-    return _ai;
-  }
-  throw createError("Missing Cloudflare AI binding (AI)");
-}
-function proxyHubAI(projectUrl, secretKey) {
-  requireNuxtHubFeature("ai");
-  const aiAPI = ofetch.create({
-    baseURL: joinURL(projectUrl, "/api/_hub/ai"),
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${secretKey}`
-    }
-  });
-  return {
-    async run(model, params) {
-      return aiAPI("/run", {
-        body: { model, params },
-        responseType: params?.stream ? "stream" : void 0
-      }).catch(handleProxyError$1);
-    }
-  };
-}
-async function handleProxyError$1(err) {
-  if (err.statusCode === 403) {
-    console.warn("It seems that your Cloudflare API token does not have the `Worker AI` permission.\nOpen `https://dash.cloudflare.com/profile/api-tokens` and edit your NuxtHub token.\nAdd the `Account > Worker AI > Read` permission to your token and save it.");
-  }
-  throw createError({
-    statusCode: err.statusCode,
-    // @ts-expect-error not aware of data property
-    message: err.data?.message || err.message
-  });
-}
-
-let _db;
-function hubDatabase() {
-  requireNuxtHubFeature("database");
-  if (_db) {
-    return _db;
-  }
-  const hub = useRuntimeConfig().hub;
-  const binding = process.env.DB || globalThis.__env__?.DB || globalThis.DB;
-  if (hub.remote && hub.projectUrl && !binding) {
-    _db = proxyHubDatabase(hub.projectUrl, hub.projectSecretKey || hub.userToken);
-    return _db;
-  }
-  if (binding) {
-    _db = binding;
-    return _db;
-  }
-  throw createError("Missing Cloudflare DB binding (D1)");
-}
-function proxyHubDatabase(projectUrl, secretKey) {
-  requireNuxtHubFeature("database");
-  const d1API = ofetch.create({
-    baseURL: joinURL(projectUrl, "/api/_hub/database"),
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${secretKey}`
-    }
-  });
-  return {
-    async exec(query) {
-      return d1API("/exec", {
-        body: { query }
-      }).catch(handleProxyError);
-    },
-    async dump() {
-      return d1API("/dump").catch(handleProxyError);
-    },
-    prepare(query) {
-      const stmt = {
-        _body: {
-          query,
-          params: []
-        },
-        bind(...params) {
-          return {
-            ...stmt,
-            _body: { query, params }
-          };
-        },
-        async all() {
-          return d1API("/all", { body: this._body }).catch(handleProxyError);
-        },
-        async raw(options) {
-          return d1API("/raw", {
-            body: {
-              ...this._body,
-              ...options
-            }
-          }).catch(handleProxyError);
-        },
-        async run() {
-          return d1API("/run", { body: this._body }).catch(handleProxyError);
-        },
-        async first(colName) {
-          return d1API("/first", {
-            body: {
-              ...this._body,
-              colName
-            }
-          }).catch(handleProxyError).then((res) => res || null);
-        }
-      };
-      return stmt;
-    },
-    batch(statements) {
-      return d1API("/batch", {
-        // @ts-expect-error _body is not recognized but internally used
-        body: statements.map((smtm) => smtm._body)
-      });
-    }
-  };
-}
-function handleProxyError(err) {
-  throw createError({
-    statusCode: err.statusCode,
-    // @ts-expect-error not aware of data property
-    message: err.data?.message || err.message
-  });
-}
-
-function hubKV() {
-  requireNuxtHubFeature("kv");
-  const hub = useRuntimeConfig().hub;
-  const binding = process.env.KV || globalThis.__env__?.KV || globalThis.KV;
-  if (hub.remote && hub.projectUrl && !binding) {
-    return proxyHubKV(hub.projectUrl, hub.projectSecretKey || hub.userToken);
-  }
-  if (binding) {
-    const storage = createStorage({
-      driver: cloudflareKVBindingDriver({
-        binding
-      })
-    });
-    return storage;
-  }
-  throw createError("Missing Cloudflare KV binding (KV)");
-}
-function proxyHubKV(projectUrl, secretKey) {
-  requireNuxtHubFeature("kv");
-  const storage = createStorage({
-    driver: httpDriver({
-      base: joinURL(projectUrl, "/api/_hub/kv/"),
-      headers: {
-        Authorization: `Bearer ${secretKey}`
-      }
-    })
-  });
-  return storage;
-}
-
-async function streamToArrayBuffer(stream, streamSize) {
-  const result = new Uint8Array(streamSize);
-  let bytesRead = 0;
-  const reader = stream.getReader();
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
-      break;
-    }
-    result.set(value, bytesRead);
-    bytesRead += value.length;
-  }
-  return result;
-}
-
-const _r2_buckets = {};
-function getBlobBinding(name = "BLOB") {
-  return process.env[name] || globalThis.__env__?.[name] || globalThis[name];
-}
-function _useBucket(name = "BLOB") {
-  if (_r2_buckets[name]) {
-    return _r2_buckets[name];
-  }
-  const binding = getBlobBinding(name);
-  if (binding) {
-    _r2_buckets[name] = binding;
-    return _r2_buckets[name];
-  }
-  throw createError(`Missing Cloudflare ${name} binding (R2)`);
-}
-function hubBlob() {
-  requireNuxtHubFeature("blob");
-  const hub = useRuntimeConfig().hub;
-  const binding = getBlobBinding();
-  if (hub.remote && hub.projectUrl && !binding) {
-    return proxyHubBlob(hub.projectUrl, hub.projectSecretKey || hub.userToken);
-  }
-  const bucket = _useBucket();
-  const blob = {
-    async list(options) {
-      const resolvedOptions = defu$1(options, {
-        limit: 1e3,
-        include: ["httpMetadata", "customMetadata"],
-        delimiter: options?.folded ? "/" : void 0
-      });
-      const listed = await bucket.list(resolvedOptions);
-      const hasMore = listed.truncated;
-      const cursor = listed.truncated ? listed.cursor : void 0;
-      return {
-        blobs: listed.objects.map(mapR2ObjectToBlob),
-        hasMore,
-        cursor,
-        folders: resolvedOptions.delimiter ? listed.delimitedPrefixes : void 0
-      };
-    },
-    async serve(event, pathname) {
-      const object = await bucket.get(decodeURI(pathname));
-      if (!object) {
-        throw createError({ message: "File not found", statusCode: 404 });
-      }
-      setHeader(event, "Content-Type", object.httpMetadata?.contentType || getContentType(pathname));
-      setHeader(event, "Content-Length", object.size);
-      setHeader(event, "etag", object.httpEtag);
-      return object.body;
-    },
-    async get(pathname) {
-      const object = await bucket.get(decodeURI(pathname));
-      if (!object) {
-        return null;
-      }
-      return object.blob();
-    },
-    async put(pathname, body, options = {}) {
-      pathname = decodeURI(pathname);
-      const { contentType: optionsContentType, contentLength, addRandomSuffix, prefix, customMetadata } = options;
-      const contentType = optionsContentType || body.type || getContentType(pathname);
-      const { dir, ext, name: filename } = parse(pathname);
-      if (addRandomSuffix) {
-        pathname = joinURL(dir === "." ? "" : dir, `${filename}-${randomUUID().split("-")[0]}${ext}`);
-      } else {
-        pathname = joinURL(dir === "." ? "" : dir, `${filename}${ext}`);
-      }
-      if (prefix) {
-        pathname = joinURL(prefix, pathname).replace(/\/+/g, "/").replace(/^\/+/, "");
-      }
-      const httpMetadata = { contentType };
-      if (contentLength) {
-        httpMetadata.contentLength = contentLength;
-      }
-      const object = await bucket.put(pathname, body, { httpMetadata, customMetadata });
-      return mapR2ObjectToBlob(object);
-    },
-    async head(pathname) {
-      const object = await bucket.head(decodeURI(pathname));
-      if (!object) {
-        throw createError({ message: "Blob not found", statusCode: 404 });
-      }
-      return mapR2ObjectToBlob(object);
-    },
-    async del(pathnames) {
-      if (Array.isArray(pathnames)) {
-        return await bucket.delete(pathnames.map((p) => decodeURI(p)));
-      } else {
-        return await bucket.delete(decodeURI(pathnames));
-      }
-    },
-    async createMultipartUpload(pathname, options = {}) {
-      pathname = decodeURI(pathname);
-      const { contentType: optionsContentType, contentLength, addRandomSuffix, prefix, customMetadata } = options;
-      const contentType = optionsContentType || getContentType(pathname);
-      const { dir, ext, name: filename } = parse(pathname);
-      if (addRandomSuffix) {
-        pathname = joinURL(dir === "." ? "" : dir, `${filename}-${randomUUID().split("-")[0]}${ext}`);
-      } else {
-        pathname = joinURL(dir === "." ? "" : dir, `${filename}${ext}`);
-      }
-      if (prefix) {
-        pathname = joinURL(prefix, pathname).replace(/\/+/g, "/").replace(/^\/+/, "");
-      }
-      const httpMetadata = { contentType };
-      if (contentLength) {
-        httpMetadata.contentLength = contentLength;
-      }
-      const mpu = await bucket.createMultipartUpload(pathname, { httpMetadata, customMetadata });
-      return mapR2MpuToBlobMpu(mpu);
-    },
-    resumeMultipartUpload(pathname, uploadId) {
-      const mpu = bucket.resumeMultipartUpload(pathname, uploadId);
-      return mapR2MpuToBlobMpu(mpu);
-    },
-    async handleUpload(event, options = {}) {
-      assertMethod(event, ["POST", "PUT", "PATCH"]);
-      options = defu$1(options, {
-        formKey: "files",
-        multiple: true
-      });
-      const form = await readFormData(event);
-      const files = form.getAll(options.formKey);
-      if (!files) {
-        throw createError({ statusCode: 400, message: "Missing files" });
-      }
-      if (!options.multiple && files.length > 1) {
-        throw createError({ statusCode: 400, message: "Multiple files are not allowed" });
-      }
-      const objects = [];
-      try {
-        if (options.maxSize || options.types?.length) {
-          for (const file of files) {
-            ensureBlob(file, options.ensure);
-          }
-        }
-        for (const file of files) {
-          const object = await blob.put(file.name, file, options.put);
-          objects.push(object);
-        }
-      } catch (e) {
-        throw createError({
-          statusCode: 500,
-          message: `Storage error: ${e.message}`
-        });
-      }
-      return objects;
-    }
-  };
-  return {
-    ...blob,
-    delete: blob.del,
-    handleMultipartUpload: createMultipartUploadHandler(blob)
-  };
-}
-function proxyHubBlob(projectUrl, secretKey) {
-  requireNuxtHubFeature("blob");
-  const blobAPI = ofetch.create({
-    baseURL: joinURL(projectUrl, "/api/_hub/blob"),
-    headers: {
-      Authorization: `Bearer ${secretKey}`
-    }
-  });
-  const blob = {
-    async list(options = { limit: 1e3 }) {
-      return blobAPI("/", {
-        method: "GET",
-        query: options
-      });
-    },
-    async serve(_event, pathname) {
-      return blobAPI(decodeURI(pathname), {
-        method: "GET"
-      });
-    },
-    async put(pathname, body, options = {}) {
-      const { contentType, contentLength, ...query } = options;
-      const headers = {};
-      if (contentType) {
-        headers["content-type"] = contentType;
-      }
-      if (contentLength) {
-        headers["content-length"] = contentLength;
-      }
-      if (body instanceof Uint8Array) {
-        body = new Blob([body]);
-      }
-      return await blobAPI(decodeURI(pathname), {
-        method: "PUT",
-        headers,
-        body,
-        query
-      });
-    },
-    async head(pathname) {
-      return await blobAPI(`/head/${decodeURI(pathname)}`, {
-        method: "GET"
-      });
-    },
-    async get(pathname) {
-      return await blobAPI(`/${decodeURI(pathname)}`, {
-        method: "GET",
-        responseType: "blob"
-      });
-    },
-    async del(pathnames) {
-      if (Array.isArray(pathnames)) {
-        await blobAPI("/delete", {
-          method: "POST",
-          body: {
-            pathnames: pathnames.map((p) => decodeURI(p))
-          }
-        });
-      } else {
-        await blobAPI(decodeURI(pathnames), {
-          method: "DELETE"
-        });
-      }
-      return;
-    },
-    async createMultipartUpload(pathname, options = {}) {
-      return await blobAPI(`/multipart/${decodeURI(pathname)}`, {
-        method: "POST",
-        body: options
-      });
-    },
-    resumeMultipartUpload(pathname, uploadId) {
-      return {
-        pathname,
-        uploadId,
-        async uploadPart(partNumber, body) {
-          return await blobAPI(`/multipart/${decodeURI(pathname)}`, {
-            method: "PUT",
-            query: {
-              uploadId,
-              partNumber
-            },
-            body
-          });
-        },
-        async abort() {
-          await blobAPI(`/multipart/${decodeURI(pathname)}`, {
-            method: "DELETE",
-            query: {
-              uploadId
-            }
-          });
-        },
-        async complete(parts) {
-          return await blobAPI("/multipart/complete", {
-            method: "POST",
-            query: {
-              pathname,
-              uploadId
-            },
-            body: {
-              parts
-            }
-          });
-        }
-      };
-    },
-    async handleUpload(event, options = {}) {
-      return await blobAPI("/", {
-        method: "POST",
-        body: await readFormData(event),
-        query: options
-      });
-    }
-  };
-  return {
-    ...blob,
-    delete: blob.del,
-    handleMultipartUpload: createMultipartUploadHandler(blob)
-  };
-}
-function createMultipartUploadHandler(hub) {
-  const { createMultipartUpload, resumeMultipartUpload } = hub;
-  const createHandler = async (event, options) => {
-    const { pathname } = await getValidatedRouterParams(event, z.object({
-      pathname: z.string().min(1)
-    }).parse);
-    try {
-      const object = await createMultipartUpload(pathname, options);
-      return {
-        uploadId: object.uploadId,
-        pathname: object.pathname
-      };
-    } catch (e) {
-      throw createError({
-        statusCode: 400,
-        message: e.message
-      });
-    }
-  };
-  const uploadHandler = async (event) => {
-    const { pathname } = await getValidatedRouterParams(event, z.object({
-      pathname: z.string().min(1)
-    }).parse);
-    const { uploadId, partNumber } = await getValidatedQuery(event, z.object({
-      uploadId: z.string(),
-      partNumber: z.coerce.number()
-    }).parse);
-    const contentLength = Number(getHeader(event, "content-length") || "0");
-    const stream = getRequestWebStream(event);
-    const body = await streamToArrayBuffer(stream, contentLength);
-    const mpu = resumeMultipartUpload(pathname, uploadId);
-    try {
-      return await mpu.uploadPart(partNumber, body);
-    } catch (e) {
-      throw createError({ status: 400, message: e.message });
-    }
-  };
-  const completeHandler = async (event) => {
-    const { pathname } = await getValidatedRouterParams(event, z.object({
-      pathname: z.string().min(1)
-    }).parse);
-    const { uploadId } = await getValidatedQuery(event, z.object({
-      uploadId: z.string().min(1)
-    }).parse);
-    const { parts } = await readValidatedBody(event, z.object({
-      parts: z.array(z.object({
-        partNumber: z.number(),
-        etag: z.string()
-      }))
-    }).parse);
-    const mpu = resumeMultipartUpload(pathname, uploadId);
-    try {
-      const object = await mpu.complete(parts);
-      return object;
-    } catch (e) {
-      throw createError({ status: 400, message: e.message });
-    }
-  };
-  const abortHandler = async (event) => {
-    const { pathname } = await getValidatedRouterParams(event, z.object({
-      pathname: z.string().min(1)
-    }).parse);
-    const { uploadId } = await getValidatedQuery(event, z.object({
-      uploadId: z.string().min(1)
-    }).parse);
-    const mpu = resumeMultipartUpload(pathname, uploadId);
-    try {
-      await mpu.abort();
-    } catch (e) {
-      throw createError({ status: 400, message: e.message });
-    }
-  };
-  const handler = async (event, options) => {
-    const method = event.method;
-    const { action } = await getValidatedRouterParams(event, z.object({
-      action: z.enum(["create", "upload", "complete", "abort"])
-    }).parse);
-    if (action === "create" && method === "POST") {
-      return {
-        action,
-        data: await createHandler(event, options)
-      };
-    }
-    if (action === "upload" && method === "PUT") {
-      return {
-        action,
-        data: await uploadHandler(event)
-      };
-    }
-    if (action === "complete" && method === "POST") {
-      return {
-        action,
-        data: await completeHandler(event)
-      };
-    }
-    if (action === "abort" && method === "DELETE") {
-      return {
-        action,
-        data: await abortHandler(event)
-      };
-    }
-    throw createError({ status: 405 });
-  };
-  return async (event, options) => {
-    const result = await handler(event, options);
-    if (result.data) {
-      event.respondWith(Response.json(result.data));
-    } else {
-      sendNoContent(event);
-    }
-    return result;
-  };
-}
-function getContentType(pathOrExtension) {
-  return pathOrExtension && mime.getType(pathOrExtension) || "application/octet-stream";
-}
-function mapR2ObjectToBlob(object) {
-  return {
-    pathname: object.key,
-    contentType: object.httpMetadata?.contentType,
-    size: object.size,
-    uploadedAt: object.uploaded,
-    customMetadata: object.customMetadata || {}
-  };
-}
-function mapR2MpuToBlobMpu(mpu) {
-  return {
-    pathname: mpu.key,
-    uploadId: mpu.uploadId,
-    async uploadPart(partNumber, value) {
-      return await mpu.uploadPart(partNumber, value);
-    },
-    abort: mpu.abort,
-    async complete(uploadedParts) {
-      const object = await mpu.complete(uploadedParts);
-      return mapR2ObjectToBlob(object);
-    }
-  };
-}
-const FILESIZE_UNITS = ["B", "KB", "MB", "GB"];
-function fileSizeToBytes(input) {
-  const regex = new RegExp(
-    `^(\\d+)(\\.\\d+)?\\s*(${FILESIZE_UNITS.join("|")})$`,
-    "i"
-  );
-  const match = input.match(regex);
-  if (!match) {
-    throw createError({ statusCode: 400, message: `Invalid file size format: ${input}` });
-  }
-  const sizeValue = Number.parseFloat(match[1]);
-  const sizeUnit = match[3].toUpperCase();
-  if (!FILESIZE_UNITS.includes(sizeUnit)) {
-    throw createError({ statusCode: 400, message: `Invalid file size unit: ${sizeUnit}` });
-  }
-  const bytes = sizeValue * Math.pow(1024, FILESIZE_UNITS.indexOf(sizeUnit));
-  return Math.floor(bytes);
-}
-function ensureBlob(blob, options = {}) {
-  requireNuxtHubFeature("blob");
-  if (!options.maxSize && !options.types?.length) {
-    throw createError({
-      statusCode: 400,
-      message: "ensureBlob() requires at least one of maxSize or types to be set."
-    });
-  }
-  if (options.maxSize) {
-    const maxFileSizeBytes = fileSizeToBytes(options.maxSize);
-    if (blob.size > maxFileSizeBytes) {
-      throw createError({
-        statusCode: 400,
-        message: `File size must be less than ${options.maxSize}`
-      });
-    }
-  }
-  const blobShortType = blob.type.split("/")[0];
-  if (options.types?.length && !options.types.includes(blob.type) && !options.types.includes(blobShortType)) {
-    throw createError({
-      statusCode: 400,
-      message: `File type is invalid, must be: ${options.types.join(", ")}`
-    });
-  }
-}
-
-const manifest_get = eventHandler(async (event) => {
-  await requireNuxtHubAuthorization();
-  const { version, cache, ai, analytics, browser, blob, kv, database } = useRuntimeConfig().hub;
-  const [aiCheck, dbCheck, kvCheck, blobCheck] = await Promise.all([
-    falseIfFail(() => ai && hubAI().run("@cf/baai/bge-small-en-v1.5", { text: "check" })),
-    falseIfFail(() => database && hubDatabase().exec("PRAGMA table_list")),
-    falseIfFail(() => kv && hubKV().getKeys("__check__")),
-    falseIfFail(() => blob && hubBlob().list({ prefix: "__check__" }))
-  ]);
-  return {
-    version,
-    storage: {
-      database: Boolean(dbCheck),
-      kv: Array.isArray(kvCheck),
-      blob: Array.isArray(blobCheck?.blobs)
-    },
-    features: {
-      ai: Boolean(aiCheck),
-      analytics,
-      browser,
-      cache
-    }
-  };
-});
-async function falseIfFail(fn) {
-  try {
-    const res = fn();
-    if (res instanceof Promise) {
-      return res.catch(() => false);
-    }
-    return res;
-  } catch (e) {
-    return false;
-  }
-}
-
-const manifest_get$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: manifest_get
-});
-
-const openapi_get = eventHandler(async (event) => {
-  await requireNuxtHubAuthorization();
-  const hub = useRuntimeConfig().hub;
-  if (!hub.openapi) {
-    throw createError({
-      statusCode: 422,
-      message: "OpenAPI not configured"
-    });
-  }
-  const openapi = await Promise.resolve().then(function () { return openapi$1; }).then((mod) => mod.default).catch(() => void 0);
-  if (typeof openapi !== "function") {
-    throw createError({
-      statusCode: 404,
-      message: "not found"
-    });
-  }
-  return openapi(event);
-});
-
-const openapi_get$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: openapi_get
-});
-
 const Vue3 = version[0] === "3";
 
 function resolveUnref(r) {
@@ -1999,6 +1103,18 @@ function createServerHead(options = {}) {
 const unheadPlugins = true ? [CapoPlugin({ track: true })] : [];
 
 const renderSSRHeadOptions = {"omitLineBreaks":false};
+
+function buildAssetsDir() {
+  return useRuntimeConfig().app.buildAssetsDir;
+}
+function buildAssetsURL(...path) {
+  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
+}
+function publicAssetsURL(...path) {
+  const app = useRuntimeConfig().app;
+  const publicBase = app.cdnURL || app.baseURL;
+  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
+}
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
@@ -2413,13 +1529,6 @@ function replaceIslandTeleports(ssrContext, html) {
 const renderer$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   default: renderer
-});
-
-const openapi = () => ({});
-
-const openapi$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: openapi
 });
 
 const styles = {};
