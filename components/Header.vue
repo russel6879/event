@@ -4,7 +4,8 @@
         <div class="container">
           <div class="main-header-action-wrap">
             <div class="logo">
-         <NuxtLink to="/"><img src="/images/logo2.png" alt="logo" /></NuxtLink>
+         <NuxtLink to="/"> <img :src="`${$config.public.baseURL}`+logoUrl" alt="logo" />
+         </NuxtLink>
             </div>
             <!-- end logo -->
             <nav class="main-menu me-4 ms-auto main-menu-black">
@@ -187,9 +188,37 @@
   </template>
   
   <script setup>
-  // You can add any logic here if needed
+import { ref, onMounted } from 'vue';
+import settingsService from '@/services/settingsService'; // Adjust the path if needed
+  
+  // Define a ref to hold the logo URL
+  const logoUrl = ref(''); // Default logo URL in case the API fails
+  
+  // Fetch settings data when the component is mounted
+  const fetchSettings = async () => {
+  try {
+    const settings = await settingsService.getSiteSetting('header_settings'); // Fetch settings data
+   
+    if (settings && settings.value.logo) {
+      logoUrl.value = settings.value.logo; // Update the logo URL with the fetched data
+    }
+  } catch (error) {
+    console.error('Failed to fetch settings:', error);
+  }
+};
+
+// Call fetchSettings when the component is mounted
+onMounted(fetchSettings);
   </script>
   
+  <style scoped>
+  /* Scoped styles for AppHeader.vue */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  </style>
   <style scoped>
   /* Scoped styles for AppHeader.vue */
   header {
