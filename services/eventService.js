@@ -47,6 +47,22 @@ export default {
       throw error;
     }
   },
+  async getRelatedEvents(categoryIds,currentEventId) {
+    try {
+    
+        const response = await apiClient.get('/events-related', {
+            params: {
+                categories: categoryIds, // Pass categoryIds as query parameters
+                current_event_id:currentEventId
+            },
+        });
+       
+        return response.data; // Return the data from the response
+    } catch (error) {
+        console.error(`Error fetching related events for categories ${categoryIds}:`, error);
+        throw error; // Rethrow the error to handle it in the calling function
+    }
+},
   async getEventDetails(slug) {
     try {
       const response = await apiClient.get(`/event-details/${slug}`);

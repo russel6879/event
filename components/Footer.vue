@@ -8,18 +8,31 @@
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="footer-item">
-              <a href="index.html" class="footer-logo mb-4 d-inline-block"
-                ><img src="/images/logo2.png" alt="logo"
-              /></a>
+              <NuxtLink to="/" class="footer-logo mb-4 d-inline-block"> <img :src="`${$config.public.baseURL}`+footerLogoUrl" alt="logo" /></NuxtLink>
               <p class="mb-4">
-                Morbi convallis bibendum urna ut viverra. Maecenas quis
-                consequat libero, a feugiat eros
+                {{footerSetting.footerDescription}}
               </p>
               <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                
+               <!-- Facebook Link -->
+                <a v-if="socialLinks.facebook" :href="socialLinks.facebook" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <!-- Twitter Link -->
+                <a v-if="socialLinks.twitter" :href="socialLinks.twitter" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-twitter"></i>
+                </a>
+
+                <!-- Instagram Link -->
+                <a v-if="socialLinks.instagram" :href="socialLinks.instagram" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-instagram"></i>
+                </a>
+
+                <!-- YouTube Link -->
+                <a v-if="socialLinks.youtube" :href="socialLinks.youtube" target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-youtube"></i>
+                </a>
               </div>
             </div>
             <!-- end footer-item -->
@@ -63,16 +76,15 @@
               <div class="stroke-shape mb-4"></div>
               <ul class="info-list">
                 <li>
-                  <span class="fal fa-home icon me-2"></span> 12345 Little Baker
-                  St, Melbourne
+                  <span class="fal fa-home icon me-2"></span>  {{footerSetting.contactInfo?.address}}
                 </li>
                 <li>
                   <span class="fal fa-headphones icon me-2"></span>
-                  <a href="#">+ 61 23 8093 3400</a>
+                  <a href="#"> {{footerSetting.contactInfo?.phone}}</a>
                 </li>
                 <li>
                   <span class="fal fa-envelope icon me-2"></span>
-                  <a href="#">dirto@gmail.com</a>
+                  <a href="#"> {{footerSetting.contactInfo?.email}}</a>
                 </li>
               </ul>
             </div>
@@ -86,11 +98,11 @@
           class="copy-right d-flex flex-wrap align-items-center justify-content-between pb-4"
         >
           <p class="copy__desc py-2">
-            &copy; Copyright Dirto <span id="copyright-year"></span>. Made with
+            &copy; {{footerSetting.copyrightText}} <span id="copyright-year"></span>. Made with
             <span class="fas fa-heart bounce-anim"></span> by
-            <a href="https://techydevs.com/">TechyDevs</a>
+            <a href="https://www.fiverr.com/alamin152351260">Al Amin</a>
           </p>
-          <select
+          <!-- <select
             class="select-picker select-picker-sm"
             data-width="130"
             data-size="5"
@@ -101,7 +113,7 @@
             <option value="4">German</option>
             <option value="5">Italian</option>
             <option value="6">Turkish</option>
-          </select>
+          </select> -->
         </div>
         <!-- end copy-right -->
       </div>
@@ -121,8 +133,32 @@
   </template>
   
   <script setup>
-  // You can add any logic here if needed
-  </script>
+  import { ref, onMounted } from 'vue';
+  import settingsService from '@/services/settingsService'; // Adjust the path if needed  
+    // Define a ref to hold the logo URL
+    const footerLogoUrl = ref(''); // Default logo URL in case the API fails
+    const footerSetting = ref(''); 
+    const socialLinks = ref(''); 
+    
+    // Fetch settings data when the component is mounted
+    const fetchSettings = async () => {
+    try {
+      const settings = await settingsService.getSiteSetting('footer_settings'); // Fetch settings data
+      const socialSettings = await settingsService.getSiteSetting('social_links'); // Fetch settings data
+     
+      if (settings && settings.value.footerLogo) {
+        footerLogoUrl.value = settings.value.footerLogo; // Update the logo URL with the fetched data
+        footerSetting.value = settings.value; // Update the logo URL with the fetched data
+      }
+      socialLinks.value=socialSettings.value
+    } catch (error) {
+      console.error('Failed to fetch settings:', error);
+    }
+  };
+  
+  // Call fetchSettings when the component is mounted
+  onMounted(fetchSettings);
+    </script>
   
   <style scoped>
   /* Scoped styles for AppFooter.vue */

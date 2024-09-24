@@ -107,18 +107,10 @@
         <!-- end off-canvas-close -->
         <ul class="off-canvas-menu padding-top-60px">
           <li>
-            <a href="#"
-              >Home <span class="fal fa-angle-down sub-menu-toggler"></span
-            ></a>
-            <ul class="off-canvas-sub-menu">
-              <li><a href="index.html">Home one</a></li>
-              <li><a href="index2.html">Home two </a></li>
-              <li><a href="index3.html">Home three</a></li>
-              <li><a href="index4.html">Home four</a></li>
-              <li><a href="index5.html">Home five</a></li>
-            </ul>
+            <NuxtLink to="/">Home</NuxtLink>
+           
           </li>
-          <li>
+          <!-- <li>
             <a href="#"
               >Categories
               <span class="fal fa-angle-down sub-menu-toggler"></span
@@ -128,8 +120,8 @@
               <li><a href="all-locations.html">All locations</a></li>
               <li><a href="top-place.html">Top places </a></li>
             </ul>
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a href="#"
               >Listings <span class="fal fa-angle-down sub-menu-toggler"></span
             ></a>
@@ -143,13 +135,14 @@
               <li><a href="listing-details.html">Listing details</a></li>
               <li><a href="add-listing.html">Add listing</a></li>
             </ul>
-          </li>
+          </li> -->
           <li>
             <a href="#"
               >Pages <span class="fal fa-angle-down sub-menu-toggler"></span
             ></a>
             <ul class="off-canvas-sub-menu">
-              <li><a href="user-profile.html">user profile</a></li>
+              <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li>
+              <!-- <li><a href="user-profile.html">user profile</a></li>
               <li><a href="top-author.html">top authors </a></li>
               <li><a href="dashboard.html">dashboard</a></li>
               <li><a href="booking.html">booking </a></li>
@@ -162,10 +155,10 @@
               <li><a href="faq.html">faq</a></li>
               <li><a href="contact.html">contact</a></li>
               <li><a href="page-404.html">404 page</a></li>
-              <li><a href="recover.html">recover pass</a></li>
+              <li><a href="recover.html">recover pass</a></li> -->
             </ul>
           </li>
-          <li>
+          <!-- <li>
             <a href="#"
               >blog <span class="fal fa-angle-down sub-menu-toggler"></span
             ></a>
@@ -176,11 +169,11 @@
               <li><a href="blog-right-sidebar.html">right sidebar </a></li>
               <li><a href="blog-single.html">blog detail</a></li>
             </ul>
-          </li>
+          </li> -->
         </ul>
         <div class="mt-4 text-center">
-          <a href="login.html" class="theme-btn me-2">Login</a>
-          <a href="sign-up.html" class="theme-btn">Sign up</a>
+                <NuxtLink to="/login" class="theme-btn me-2">Login</NuxtLink>               
+                <NuxtLink to="/signup"  class="theme-btn">Sign Up</NuxtLink>
         </div>
       </div>
       <!-- end off-canvas -->
@@ -189,8 +182,7 @@
   
   <script setup>
 import { ref, onMounted } from 'vue';
-import settingsService from '@/services/settingsService'; // Adjust the path if needed
-  
+import settingsService from '@/services/settingsService'; // Adjust the path if needed  
   // Define a ref to hold the logo URL
   const logoUrl = ref(''); // Default logo URL in case the API fails
   

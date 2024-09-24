@@ -20,7 +20,9 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.client.js").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/dev-server-logs.js").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/check-if-layout-used.js").default> &
+  InjectionType<typeof import("../../plugins/dateFormatter").default> &
   InjectionType<typeof import("../../plugins/sweetalert2").default> &
+  InjectionType<typeof import("../../plugins/timeFormatter").default> &
   InjectionType<typeof import("../../plugins/toastify").default>
 
 declare module '#app' {

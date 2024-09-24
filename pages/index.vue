@@ -5,10 +5,9 @@
       <!-- end overlay -->
       <div class="container position-relative z-index-2">
         <div class="hero-heading text-center pt-4">
-          <h2 class="sec__title text-white">What Your Plan Today?</h2>
+          <h2 class="sec__title text-white">Explore Global Events & Exhibitions with Expo Gazette</h2>
           <p class="sec__desc text-white">
-            All the top locations – from restaurants and clubs, to galleries,
-            famous places and more...
+            Please search exhibitions & events using name, country, and category to find the perfect match for your interests.
           </p>
         </div>
        
@@ -113,6 +112,10 @@
 
     <section class="card-area section-padding">
     <div class="container">
+      <div class="text-center">
+          <h2 class="sec__title mb-5">Featured Events</h2>
+      
+        </div>
       <Swiper
         v-if="events.length > 0"
         :modules="[SwiperAutoplay, SwiperEffectCards, SwiperNavigation]"
@@ -173,14 +176,14 @@
               <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
               <ul class="info-list mt-3">
                 <!-- <li><span class="fal fa-phone icon"></span> {{ event.phone }}</li> -->
-                <li>
+                <!-- <li>
                   <span class="fal fa-link icon"></span>
                   <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
-                </li>
+                </li> -->
                 <li>
-                  <span class="fal fa-calendar icon"></span> {{ event.event_date_from }}
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
                 </li>
-                <li><span class="fal fa-watch icon"></span> {{ event.event_time_from }}</li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
               </ul>
             </div>
             <!-- end card-body -->
@@ -259,14 +262,14 @@
               <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
               <ul class="info-list mt-3">
                 <!-- <li><span class="fal fa-phone icon"></span> {{ event.phone }}</li> -->
-                <li>
+                <!-- <li>
                   <span class="fal fa-link icon"></span>
                   <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
-                </li>
+                </li> -->
                 <li>
-                  <span class="fal fa-calendar icon"></span> {{ event.event_date_from }}
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
                 </li>
-                <li><span class="fal fa-watch icon"></span> {{ event.event_time_from }}</li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
               </ul>
             </div>
             <!-- end card-body -->
@@ -343,14 +346,14 @@
               <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
               <ul class="info-list mt-3">
                 <!-- <li><span class="fal fa-phone icon"></span> {{ event.phone }}</li> -->
-                <li>
+                <!-- <li>
                   <span class="fal fa-link icon"></span>
                   <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
-                </li>
+                </li> -->
                 <li>
-                  <span class="fal fa-calendar icon"></span> {{ event.event_date_from }}
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
                 </li>
-                <li><span class="fal fa-watch icon"></span> {{ event.event_time_from }}</li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
               </ul>
             </div>
             <!-- end card-body -->
@@ -387,6 +390,8 @@ import 'swiper/swiper-bundle.css';
 import { ref, onMounted } from 'vue'; // Import ref and onMounted from Vue
 import eventService from '@/services/eventService'; // Adjust the path based on your project structure
 import { useRouter } from 'vue-router';
+
+
 const countries = ref([]);
 const searchQuery = ref('');
 const router = useRouter();

@@ -56,6 +56,7 @@
                   Description
                 </h4>
                 <p  v-html="event?.description"></p>
+            
               </div>
               <!-- end listing-single-panel -->
               <div class="listing-single-panel mb-5">
@@ -121,12 +122,12 @@
                 <h4 class="font-size-20 font-weight-semi-bold mb-3">Video</h4>
                 <div class="video-box text-center position-relative">
                   <div class="overlay z-index-0 rounded"></div>
-                  <!-- <img
-                    :src="`${$config.public.baseURL}/`+event?.featured_photo"
-                    :data-src="`${$config.public.baseURL}/`+event?.featured_photo"
+                  <img
+                    :src="`${$config.public.baseURL}/`+'video-poster.jpeg'"
+                    :data-src="`${$config.public.baseURL}/`+'video-poster.jpeg'"
                     alt="video-image"
                     class="w-100 rounded lazy"
-                  /> -->
+                  />
                   <div
                     class="video-content position-absolute top-0 left-0 w-100 h-100 d-flex align-items-center justify-content-center"
                   >
@@ -155,8 +156,8 @@
             
                   class="w-100 height-300"
                 >
-               
-               <iframe :src="event?.venue.google_map_link" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p class="mb-3">{{ event?.venue.description }}</p> 
+               <iframe :src="event?.venue.google_map_link" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               
               </div>
@@ -192,13 +193,13 @@
                     <span
                       class="fal fa-calendar icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                     ></span
-                    > {{event?.event_date_from}} ~ {{event?.event_date_to}}
+                    > {{ $formatDate(event?.event_date_from) }} ~ {{ $formatDate(event?.event_date_to) }}
                   </li>
                   <li>
                     <span
                       class="fal fa-watch icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                     ></span>
-                  {{event?.event_time_from}} ~ {{event?.event_time_to}}
+                    {{ $formatTime(event?.event_time_from) }} ~  {{ $formatTime(event?.event_time_to) }}
                   </li>
                   <li>
                     <span
@@ -257,7 +258,7 @@
        
               </div> -->
               <!-- end card -->
-              <div class="card">
+              <div class="card d-none">
                 <div class="card-body">
                   <h4 class="card-title mb-3">Tags</h4>
                   <ul class="tag-list">
@@ -292,7 +293,7 @@
                     </div>
                   </div>
                   <ul class="list-items mt-4">
-                    <li>
+                    <!-- <li>
                       <span
                         class="fal fa-envelope icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                       ></span
@@ -303,7 +304,7 @@
                         class="fal fa-phone icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                       ></span>
                     {{event?.user.phone}}
-                    </li>
+                    </li> -->
                     <li>
                       <span
                         class="fal fa-external-link icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
@@ -334,257 +335,95 @@
 ================================= -->
     <section class="card-area bg-gray section-padding">
       <div class="container">
-        <h4 class="font-size-25 font-weight-semi-bold">People Also Viewed</h4>
-        <div class="card-carousel owl-carousel owl-theme mt-4 mx-lg-n2">
-          <div class="card mb-0 hover-y">
-            <a href="listing-details.html" class="card-image">
-              <img
-                src=""
-                class="card-img-top"
-                alt="card image"
-              />
-              <span class="badge text-bg-success badge-pill">Now open</span>
-            </a>
-            <div class="card-body position-relative">
-              <a href="user-profile.html" class="author-img">
-                <img src="" alt="author-img" />
-              </a>
-              <a href="#" class="card-cat mb-2"
-                ><span
-                  class="fal fa-utensils icon-element icon-element-sm"
-                ></span>
-                Restaurant</a
-              >
-              <div class="d-flex align-items-center mb-1">
-                <h4 class="card-title mb-0">
-                  <a href="listing-details.html">Favorite Place Food Bank</a>
-                </h4>
-                <i
-                  class="fa fa-check-circle ms-1 text-success"
-                  data-bs-toggle="tooltip"
-                  data-placement="top"
-                  title="Claimed"
-                ></i>
-              </div>
-              <p class="card-text">Bishop Avenue, New York</p>
-              <ul class="info-list mt-3">
-                <li><span class="fal fa-phone icon"></span> (416) 551-0589</li>
-                <li>
-                  <span class="fal fa-link icon"></span>
-                  <a href="#">www.mysitelink.com</a>
-                </li>
-                <li>
-                  <span class="fal fa-calendar icon"></span> Posted 1 month ago
-                </li>
-              </ul>
-            </div>
-            <!-- end card-body -->
-            <div
-              class="card-footer bg-transparent border-top-gray d-flex align-items-center justify-content-between"
+        <h4 class="font-size-25 font-weight-semi-bold mb-5">People Also Viewed</h4>
+     
+        <Swiper
+    v-if="relatedEvents.length > 0"
+    :modules="[SwiperAutoplay, SwiperEffectCards, SwiperNavigation]"
+    :slides-per-view="3"
+    :loop="true"
+    :autoplay="{ delay: 3000, disableOnInteraction: true }"
+    :space-between="20"
+    navigation
+    :breakpoints="{
+      300: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+      1440: { slidesPerView: 3 }
+    }"
+  >
+  
+    <swiper-slide v-for="(relatedEvent, index) in relatedEvents" :key="index">
+      <NuxtLink :to="`/listing-details/${relatedEvent.slug}`">
+        <div class="card mb-0 hover-y">
+          <a class="card-image">
+            <img
+              :src="`${$config.public.baseURL}/` + relatedEvent.featured_photo"
+              class="card-img-top"
+              alt="Event Image"
+            />
+            <span
+              class="badge badge-pill"
+              :class="{
+                'text-bg-danger': relatedEvent.event_type === 'online',
+                'text-bg-success': relatedEvent.event_type === 'physical',
+                'text-bg-primary': relatedEvent.event_type === 'hybrid'
+              }"
             >
-              <div class="star-rating" data-rating="4.5">
-                <div class="rating-counter">4.5</div>
-              </div>
-              <a
-                href="#"
-                class="bookmark-btn icon-element icon-element-sm bg-white shadow-sm text-black"
+              {{ relatedEvent.event_type }}
+            </span>
+          </a>
+
+          <div class="card-body position-relative">
+            <a class="author-img">
+              <img
+                :src="`${$config.public.baseURL}/` + relatedEvent.user.profile_image"
+                alt="Author Image"
+              />
+            </a>
+            <div class="category-container">
+              <!-- <div
+                v-for="([id, category]) in Object.entries(relatedEvent.category_names).slice(0, 2)"
+                :key="id"
+                class="category-item"
+              >
+                <NuxtLink :to="`/category/${id}`" class="card-cat">
+                  <span class="fal fa-tag icon-element icon-element-sm"></span>
+                  {{ category }}
+                </NuxtLink>
+              </div> -->
+            </div>
+            <div class="d-flex align-items-center mb-1">
+              <h4 class="card-title mb-0">
+                <a>{{ relatedEvent.title }}</a>
+              </h4>
+              <i
+                class="fa fa-check-circle ms-1 text-success"
                 data-bs-toggle="tooltip"
                 data-placement="top"
-                title="Bookmark"
-              >
-                <i class="fal fa-bookmark"></i>
-              </a>
+                title="Claimed"
+              ></i>
             </div>
-            <!-- end card-footer -->
+            <p class="card-text">
+              {{ relatedEvent.venue.venue_name }}, {{ relatedEvent.country.name }}
+            </p>
+            <ul class="info-list mt-3">
+              <li>
+                <span class="fal fa-calendar icon"></span>
+                {{ $formatDate(relatedEvent.event_date_from) }} ~
+                {{ $formatDate(relatedEvent.event_date_to) }}
+              </li>
+              <li>
+                <span class="fal fa-watch icon"></span>
+                {{ $formatTime(relatedEvent.event_time_from) }} ~
+                {{ $formatTime(relatedEvent.event_time_to) }}
+              </li>
+            </ul>
           </div>
-          <!-- end card -->
-          <div class="card mb-0 hover-y">
-            <a href="listing-details.html" class="card-image">
-              <img
-                src=""
-                class="card-img-top"
-                alt="card image"
-              />
-              <span class="badge text-bg-danger badge-pill">Closed</span>
-            </a>
-            <div class="card-body position-relative">
-              <a href="user-profile.html" class="author-img">
-                <img src="" alt="author-img" />
-              </a>
-              <a href="#" class="card-cat mb-2"
-                ><span
-                  class="fal fa-utensils icon-element icon-element-sm"
-                ></span>
-                Restaurant</a
-              >
-              <div class="d-flex align-items-center mb-1">
-                <h4 class="card-title mb-0">
-                  <a href="listing-details.html">Favorite Place Food Bank</a>
-                </h4>
-                <i
-                  class="fa fa-check-circle ms-1 text-success"
-                  data-bs-toggle="tooltip"
-                  data-placement="top"
-                  title="Claimed"
-                ></i>
-              </div>
-              <p class="card-text">Bishop Avenue, New York</p>
-              <ul class="info-list mt-3">
-                <li><span class="fal fa-phone icon"></span> (416) 551-0589</li>
-                <li>
-                  <span class="fal fa-link icon"></span>
-                  <a href="#">www.mysitelink.com</a>
-                </li>
-                <li>
-                  <span class="fal fa-calendar icon"></span> Posted 1 month ago
-                </li>
-              </ul>
-            </div>
-            <!-- end card-body -->
-            <div
-              class="card-footer bg-transparent border-top-gray d-flex align-items-center justify-content-between"
-            >
-              <div class="star-rating" data-rating="4.5">
-                <div class="rating-counter">4.5</div>
-              </div>
-              <a
-                href="#"
-                class="bookmark-btn icon-element icon-element-sm bg-white shadow-sm text-black"
-                data-bs-toggle="tooltip"
-                data-placement="top"
-                title="Bookmark"
-              >
-                <i class="fal fa-bookmark"></i>
-              </a>
-            </div>
-            <!-- end card-footer -->
-          </div>
-          <!-- end card -->
-          <div class="card mb-0 hover-y">
-            <a href="listing-details.html" class="card-image">
-              <img
-                src=""
-                class="card-img-top"
-                alt="card image"
-              />
-              <span class="badge text-bg-success badge-pill">Now open</span>
-            </a>
-            <div class="card-body position-relative">
-              <a href="user-profile.html" class="author-img">
-                <img src="" alt="author-img" />
-              </a>
-              <a href="#" class="card-cat mb-2"
-                ><span
-                  class="fal fa-utensils icon-element icon-element-sm"
-                ></span>
-                Restaurant</a
-              >
-              <div class="d-flex align-items-center mb-1">
-                <h4 class="card-title mb-0">
-                  <a href="listing-details.html">Favorite Place Food Bank</a>
-                </h4>
-                <i
-                  class="fa fa-check-circle ms-1 text-success"
-                  data-bs-toggle="tooltip"
-                  data-placement="top"
-                  title="Claimed"
-                ></i>
-              </div>
-              <p class="card-text">Bishop Avenue, New York</p>
-              <ul class="info-list mt-3">
-                <li><span class="fal fa-phone icon"></span> (416) 551-0589</li>
-                <li>
-                  <span class="fal fa-link icon"></span>
-                  <a href="#">www.mysitelink.com</a>
-                </li>
-                <li>
-                  <span class="fal fa-calendar icon"></span> Posted 1 month ago
-                </li>
-              </ul>
-            </div>
-            <!-- end card-body -->
-            <div
-              class="card-footer bg-transparent border-top-gray d-flex align-items-center justify-content-between"
-            >
-              <div class="star-rating" data-rating="4.5">
-                <div class="rating-counter">4.5</div>
-              </div>
-              <a
-                href="#"
-                class="bookmark-btn icon-element icon-element-sm bg-white shadow-sm text-black"
-                data-bs-toggle="tooltip"
-                data-placement="top"
-                title="Bookmark"
-              >
-                <i class="fal fa-bookmark"></i>
-              </a>
-            </div>
-            <!-- end card-footer -->
-          </div>
-          <!-- end card -->
-          <div class="card mb-0 hover-y">
-            <a href="listing-details.html" class="card-image">
-              <img
-                src=""
-                class="card-img-top"
-                alt="card image"
-              />
-              <span class="badge text-bg-success badge-pill">Now open</span>
-            </a>
-            <div class="card-body position-relative">
-              <a href="user-profile.html" class="author-img">
-                <img src="" alt="author-img" />
-              </a>
-              <a href="#" class="card-cat mb-2"
-                ><span
-                  class="fal fa-utensils icon-element icon-element-sm"
-                ></span>
-                Restaurant</a
-              >
-              <div class="d-flex align-items-center mb-1">
-                <h4 class="card-title mb-0">
-                  <a href="listing-details.html">Favorite Place Food Bank</a>
-                </h4>
-                <i
-                  class="fa fa-check-circle ms-1 text-success"
-                  data-bs-toggle="tooltip"
-                  data-placement="top"
-                  title="Claimed"
-                ></i>
-              </div>
-              <p class="card-text">Bishop Avenue, New York</p>
-              <ul class="info-list mt-3">
-                <li><span class="fal fa-phone icon"></span> (416) 551-0589</li>
-                <li>
-                  <span class="fal fa-link icon"></span>
-                  <a href="#">www.mysitelink.com</a>
-                </li>
-                <li>
-                  <span class="fal fa-calendar icon"></span> Posted 1 month ago
-                </li>
-              </ul>
-            </div>
-            <!-- end card-body -->
-            <div
-              class="card-footer bg-transparent border-top-gray d-flex align-items-center justify-content-between"
-            >
-              <div class="star-rating" data-rating="4.5">
-                <div class="rating-counter">4.5</div>
-              </div>
-              <a
-                href="#"
-                class="bookmark-btn icon-element icon-element-sm bg-white shadow-sm text-black"
-                data-bs-toggle="tooltip"
-                data-placement="top"
-                title="Bookmark"
-              >
-                <i class="fal fa-bookmark"></i>
-              </a>
-            </div>
-            <!-- end card-footer -->
-          </div>
-          <!-- end card -->
         </div>
+      </NuxtLink>
+    </swiper-slide>
+  </Swiper>
         <!-- end card-carousel -->
       </div>
       <!-- end container -->
@@ -605,6 +444,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const event = ref(null);
 const error = ref(null);
+const relatedEvents = ref([]);
 
 const fetchEventDetails = async () => {
   try {
@@ -612,6 +452,12 @@ const fetchEventDetails = async () => {
     const data = await eventService.getEventDetails(eventSlug);
 
     event.value = data; // Assign fetched data to the reactive event object
+        // Fetch related events
+    const categoryIds = data.category; // Assuming category_ids is available
+    const currentEventId = data.id; // Assuming category_ids is available
+    const relatedData = await eventService.getRelatedEvents(JSON.parse(categoryIds), currentEventId);
+    relatedEvents.value = relatedData;
+ console.log(relatedData)
  
   } catch (err) {
     error.value = err.message; // Handle any errors
