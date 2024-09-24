@@ -1,9 +1,9 @@
 // services/authService.js
 
 import axios from 'axios';
-
+const { $config } = useNuxtApp();
 const apiClient = axios.create({
-  baseURL: 'https://event.findthexpo.com/api', // Replace with your API base URL
+  baseURL: `${$config.public.baseURL}`, // Replace with your API base URL
   withCredentials: false,
   headers: {
     Accept: 'application/json',
