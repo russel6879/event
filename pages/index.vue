@@ -5,7 +5,7 @@
       <!-- end overlay -->
       <div class="container position-relative z-index-2">
         <div class="hero-heading text-center pt-4">
-          <h2 class="sec__title text-white">Explore Global Events & Exhibitions with Expo Gazette</h2>
+          <h3 class="sec__title text-white">Explore Global Events & Exhibitions with Expo Gazette</h3>
           <p class="sec__desc text-white">
             Please search exhibitions & events using name, country, and category to find the perfect match for your interests.
           </p>
@@ -21,7 +21,7 @@
           >
             <div class="card">
               <div class="card-body row pb-0">
-                <div class="col-lg-4 pe-lg-0">
+                <div class="col-lg-3 pe-lg-0">
                   <div class="form-group">
                     <span class="fal fa-search form-icon"></span>
                     <input
@@ -33,7 +33,7 @@
                   </div>
                 </div>
                 <!-- end col-lg-3 -->
-                <div class="col-lg-3 pe-lg-0">
+                <div class="col-lg-2 pe-lg-0">
                   <div class="form-group">
                     <span class="fal fa-map-marker-alt form-icon"></span>
                  <select class="form-control form--control" v-model="selectedCountry">
@@ -46,7 +46,7 @@
                   <!-- end form-group -->
                 </div>
                 <!-- end col-lg-3 -->
-                <div class="col-lg-3 pe-lg-0">
+                <div class="col-lg-2 pe-lg-0">
                   <div class="form-group ">
                      <span class="fal fa-tag form-icon"></span>
                   <select class="form-control form--control" v-model="selectedCategory">
@@ -59,14 +59,27 @@
                   <!-- end form-group -->
                 </div>
                 <!-- end col-lg-2 -->
-                <div class="col-lg-3 pe-lg-0 d-none">
+                <div class="col-lg-2 pe-lg-0 ">
                   <div class="form-group">
                     <span class="fal fa-calendar-alt form-icon"></span>
-                    <input
-                      class="form-control form--control date-picker"
-                      type="date"
-                      placeholder="Date"
-                    />
+                    <select class="form-control form--control" v-model="selectedMonth">
+                      <option v-for="month in months" :key="month.value" :value="month.value">
+                        {{ month.name }}
+                      </option>
+                    </select>
+                  
+                  </div>
+                  <!-- end form-group -->
+                </div>
+                <div class="col-lg-1 pe-lg-0 ">
+                  <div class="form-group">
+                    <!-- <span class="fal fa-calendar-alt form-icon"></span> -->
+                    <select class="form-control form--control p-3" v-model="selectedYear">
+                      <option v-for="year in years" :key="year" :value="year">
+                        {{ year }}
+                      </option>
+                    </select>
+                  
                   </div>
                   <!-- end form-group -->
                 </div>
@@ -97,7 +110,7 @@
   <div class="container">
     <h2 class="sec__title text-center">What do you need to find?</h2>
     <div class="row mt-5">
-      <div v-for="(category, index) in categories" :key="category.name" class="col-lg-2 col-md-4">
+      <div v-for="(category, index) in categories" :key="category.name" class="col-lg-2 col-md-4 ">
          <NuxtLink  :to="`/category/${category.id}`"  class="highlight-category highlight-category-3">
           <span :class="`fal ${category.icon} icon-element icon-element-bg-slim-${index + 1}  d-block mx-auto mb-2`"></span>
           <span class="highlight-cat-title">{{ category.name }}</span>
@@ -155,7 +168,7 @@
               </a>
               <div class="category-container">
               
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)":key="id" class="category-item">
+            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)" :key="id" class="category-item">
               <NuxtLink  :to="`/category/${id}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
@@ -391,6 +404,25 @@ import { ref, onMounted } from 'vue'; // Import ref and onMounted from Vue
 import eventService from '@/services/eventService'; // Adjust the path based on your project structure
 import { useRouter } from 'vue-router';
 
+const selectedMonth = ref(new Date().getMonth() + 1);
+const selectedYear = ref(new Date().getFullYear());
+const months = [
+  { value: 1, name: 'January' },
+  { value: 2, name: 'February' },
+  { value: 3, name: 'March' },
+  { value: 4, name: 'April' },
+  { value: 5, name: 'May' },
+  { value: 6, name: 'June' },
+  { value: 7, name: 'July' },
+  { value: 8, name: 'August' },
+  { value: 9, name: 'September' },
+  { value: 10, name: 'October' },
+  { value: 11, name: 'November' },
+  { value: 12, name: 'December' },
+];
+
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: 11 }, (v, k) => currentYear + k); // 11 years: current year + next 10 years
 
 const countries = ref([]);
 const searchQuery = ref('');
@@ -442,6 +474,8 @@ const handleSearch = () => {
     query: searchQuery.value,
     country: selectedCountry.value,
     category: selectedCategory.value,
+    month: selectedMonth.value,
+    year: selectedYear.value,
     page:1
   };
   

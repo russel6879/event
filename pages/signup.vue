@@ -9,7 +9,7 @@
         <div class="breadcrumb-content text-center">
           <h2 class="sec__title text-white mb-3">Sign Up</h2>
           <ul class="bread-list">
-            <li><a href="index.html">home</a></li>
+            <li><NuxtLink to="/">home</NuxtLink></li>
             <li>Sign Up</li>
           </ul>
         </div>

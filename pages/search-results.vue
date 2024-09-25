@@ -32,14 +32,14 @@
               </h4>
               <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
               <ul class="info-list mt-3">
-                <li>
+                <!-- <li>
                   <span class="fal fa-link icon"></span>
                   <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
-                </li>
+                </li> -->
                 <li>
-                  <span class="fal fa-calendar icon"></span> {{ event.event_date_from }}
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
                 </li>
-                <li><span class="fal fa-watch icon"></span> {{ event.event_time_from }}</li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
               </ul>
             </div>
           </div>
@@ -88,7 +88,9 @@ const getSearchResults = async (page = 1) => {
       query: route.query.query,
       country: route.query.country,
       category: route.query.category,
-      page: page,
+      month: route.query.month,
+      year: route.query.year,
+      page: page
     };
     const data = await eventService.searchEvents(params);
     events.value = data.data;

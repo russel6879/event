@@ -47,6 +47,7 @@
                     <!-- <li><a href="user-profile.html">user profile</a></li>
                     <li><a href="top-author.html">top authors </a></li> -->
                     <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li>
+                    <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
                     <!-- <li><a href="booking.html">booking </a></li>
                     <li>
                       <a href="booking-confirmation.html"
@@ -142,6 +143,7 @@
             ></a>
             <ul class="off-canvas-sub-menu">
               <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li>
+              <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
               <!-- <li><a href="user-profile.html">user profile</a></li>
               <li><a href="top-author.html">top authors </a></li>
               <li><a href="dashboard.html">dashboard</a></li>

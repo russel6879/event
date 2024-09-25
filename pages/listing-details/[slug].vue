@@ -285,11 +285,11 @@
                     />
                     <div class="media-body align-self-center">
                       <h4 class="font-size-18 font-weight-semi-bold mb-1">
-                        <a href="user-profile.html" class="btn-link text-black"
-                          >{{event?.user.name}}</a
-                        >
+                        <NuxtLink  :to="`/organizer-listings/${event?.user.id}`"  class="btn-link text-black"
+                          >{{event?.user.name}}
+                        </NuxtLink >
                       </h4>
-                      <p class="font-size-14">20 listing hosted</p>
+                      <p class="font-size-14">{{ event?.user_event_count }} listing hosted</p>
                     </div>
                   </div>
                   <ul class="list-items mt-4">
@@ -309,7 +309,7 @@
                       <span
                         class="fal fa-external-link icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                       ></span
-                      ><a :href="event?.website_link" target="_blank">{{event?.website_link}}</a>
+                      ><a :href="event?.user.website" target="_blank">{{event?.user.website}}</a>
                     </li>
                   </ul>
                 </div>
@@ -455,7 +455,7 @@ const fetchEventDetails = async () => {
         // Fetch related events
     const categoryIds = data.category; // Assuming category_ids is available
     const currentEventId = data.id; // Assuming category_ids is available
-    const relatedData = await eventService.getRelatedEvents(JSON.parse(categoryIds), currentEventId);
+    const relatedData = await eventService.getRelatedEvents(categoryIds, currentEventId);
     relatedEvents.value = relatedData;
  console.log(relatedData)
  

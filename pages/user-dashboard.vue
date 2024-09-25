@@ -8,7 +8,7 @@
           <h2 class="sec__title text-white mb-3">Dashboard</h2>
           <h2 class="sec__title text-white mb-3">Dashboard</h2>
           <ul class="bread-list">
-            <li><a href="index.html">home</a></li>
+            <li><NuxtLink to="/">home</NuxtLink></li>
             <li>pages</li>
             <li>Dashboard</li>
           </ul>
@@ -77,7 +77,7 @@
               </li> -->
             </ul>
             <div class="my-1">
-              <NuxtLink to="/6add-listing" 
+              <NuxtLink to="/add-listing" 
                 class="theme-btn theme-btn-sm bg-white shadow-sm border border-gray text-black font-weight-medium me-1"
                 ><i class="fal fa-plus me-1"></i> Add listing</NuxtLink>
               <button
@@ -99,37 +99,58 @@
           >
             <div class="row">
               <div class="col-lg-4 col-md-6" v-for="event in events" :key="event.id">
-                <div class="card hover-y">
-                  <a  class="card-image">
-                    <img
-                      
-                     :src="`${$config.public.baseURL}/`+event.featured_photo"
-                      class="card-img-top lazy"
-                      alt="card image"
-                    />
-                    <span class="badge text-bg-success badge-pill"
-                      >Now open</span
-                    >
-                  </a>
-                  <div class="card-body position-relative">
-                    <a href="#" class="card-cat mb-2"
-                      ><span
-                        class="fal fa-utensils icon-element icon-element-sm"
-                      ></span>
-                      {{ event.category }}</a
-                    >
-                    <h4 class="card-title mb-1">
-                      <a href="listing-details.html"
-                        >{{ event.title }}</a
-                      >
-                    </h4>
-                    <p class="card-text">{{event.venue }} {{ event.country }}</p>
-                    <div class="star-rating mt-1" data-rating="5">
-                      <div class="rating-counter">5 reviews</div>
-                    </div>
-                  </div>
-                  <!-- end card-body -->
-                  <div class="card-footer bg-transparent border-top-gray">
+             
+                  <div class="card mb-0 hover-y">
+            <a class="card-image">
+              <img
+                :src="`${$config.public.baseURL}/`+event.featured_photo"
+                class="card-img-top"
+                alt="Event Image"
+              />
+              <span class="badge  badge-pill"    :class="{
+                      'text-bg-danger': event.event_type === 'online',
+                      'text-bg-success': event.event_type === 'physical',
+                      'text-bg-primary': event.event_type === 'hybrid'
+      }">{{ event.event_type }}</span>
+            </a>
+            <div class="card-body position-relative">
+              <a class="author-img">
+                <img :src="`${$config.public.baseURL}/`+event.user.profile_image" alt="Author Image" />
+              </a>
+              <div class="category-container">
+                   
+            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)":key="id" class="category-item">
+              <NuxtLink  :to="`/category/${id}`"  class="card-cat">
+                <span class="fal fa-tag icon-element icon-element-sm"></span>
+                {{ category }}
+              </NuxtLink>
+            </div>
+          </div>
+              <div class="d-flex align-items-center mb-1">
+                <h4 class="card-title mb-0">
+                  <a>{{ event.title }}</a>
+                </h4>
+                <i
+                  class="fa fa-check-circle ms-1 text-success"
+                  data-bs-toggle="tooltip"
+                  data-placement="top"
+                  title="Claimed"
+                ></i>
+              </div>
+              <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
+              <ul class="info-list mt-3">
+                <!-- <li><span class="fal fa-phone icon"></span> {{ event.phone }}</li> -->
+                <!-- <li>
+                  <span class="fal fa-link icon"></span>
+                  <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
+                </li> -->
+                <li>
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
+                </li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
+              </ul>
+            </div>
+            <div class="card-footer bg-transparent border-top-gray">
                     <NuxtLink :to="`/edit-listing/${event.id}`" class="btn btn-sm edit-btn bg-success text-white me-1">
                       Edit
                     </NuxtLink>
@@ -138,7 +159,9 @@
                     </a>
                   </div>
                   <!-- end card-footer -->
-                </div>
+
+          </div>
+               
                 <!-- end card -->
               </div>
             
@@ -480,3 +503,28 @@ const deleteEvent = async (id) => {
 };
 
 </script>
+<style scoped>
+.category-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
+  gap: 8px; /* Adds space between items */
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+}
+
+.card-cat {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+}
+
+.icon-element {
+  margin-right: 8px;
+}
+/* Add your custom styles here */
+</style>

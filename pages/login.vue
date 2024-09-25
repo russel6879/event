@@ -5,7 +5,7 @@
         <div class="breadcrumb-content text-center">
           <h2 class="sec__title text-white mb-3">Login</h2>
           <ul class="bread-list">
-            <li><a href="/">home</a></li>
+            <li><NuxtLink to="/">home</NuxtLink></li>
             <li>login</li>
           </ul>
         </div>

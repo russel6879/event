@@ -7,7 +7,7 @@ export default defineNuxtPlugin(() => {
           const date = new Date(dateString);
           return date.toLocaleDateString('en-GB', {
             day: 'numeric',
-            month: 'long',
+            month: 'short',
             year: 'numeric',
           });
         },

@@ -146,6 +146,18 @@ export default {
       throw error; // Re-throw the error so it can be handled where the method is called
     }
   },
+  async getEventsByUser(userId, page = 1) {
+    try {
+      const response = await apiClient.get(`/events/user/${userId}`, {
+        params: { page }
+      });
+    
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching events for organizers ID ${userId}:`, error);
+      throw error; // Re-throw the error so it can be handled where the method is called
+    }
+  },
   async searchEvents(params) {
   
     try {
@@ -154,6 +166,8 @@ export default {
           query: params.query,
           country: params.country,
           category: params.category,
+          month: params.month,
+          year: params.year,
           page: params.page, // Include the page parameter
         },
       });

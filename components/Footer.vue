@@ -43,12 +43,9 @@
               <h4 class="footer__title mb-3">Quick Links</h4>
               <div class="stroke-shape mb-4"></div>
               <ul class="list-items list-items-underline">
-                <li><a href="about.html">About us</a></li>
-                <li><a href="sign-up.html">Sign up</a></li>
-                <li><a href="login.html">Log in</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Help Center</a></li>
+                 <li v-for="(link, index) in footerSetting.quickLinks" :key="index">
+                    <a :href="link.url">{{ link.title }}</a>
+                 </li>
               </ul>
             </div>
             <!-- end footer-item -->
@@ -57,7 +54,7 @@
           <div class="col-lg-3 col-md-6">
             <div class="footer-item">
               <h4 class="footer__title mb-3">Categories</h4>
-              <div class="stroke-shape mb-4"></div>
+                           <div class="stroke-shape mb-4"></div>
               <ul class="list-items list-items-underline">
                 <li><a href="#">Shops</a></li>
                 <li><a href="#">Hotels</a></li>
@@ -98,7 +95,7 @@
           class="copy-right d-flex flex-wrap align-items-center justify-content-between pb-4"
         >
           <p class="copy__desc py-2">
-            &copy; {{footerSetting.copyrightText}} <span id="copyright-year"></span>. Made with
+            &copy; {{footerSetting.copyrightText}} <span id="copyright-year"></span>. Developed
             <span class="fas fa-heart bounce-anim"></span> by
             <a href="https://www.fiverr.com/alamin152351260">Al Amin</a>
           </p>
