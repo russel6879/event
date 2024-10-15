@@ -522,6 +522,7 @@ onMounted(() => {
    fetchSearchbarCategories();
    fetchCountries();
    getUpcomingEvents();
+   getFeaturedEvents();
 
 });
 
