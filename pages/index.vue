@@ -140,7 +140,7 @@
       
         </div>
       <Swiper
-        v-if="events.length > 0"
+        v-if="featuredEvents.length > 0"
         :modules="[SwiperAutoplay, SwiperEffectCards, SwiperNavigation]"
         :slides-per-view="3"
         :loop="true"
@@ -156,7 +156,7 @@
         }"
       >
     
-        <swiper-slide v-for="(event, index) in events" :key="index">
+        <swiper-slide v-for="(event, index) in featuredEvents" :key="index">
           <NuxtLink  :to="`/listing-details/${event.slug}`">
           <div class="card mb-0 hover-y">
             <a class="card-image">
@@ -441,6 +441,7 @@ const searchQuery = ref('');
 const router = useRouter();
 const events = ref([]);
 const upEvents = ref([]);
+const featuredEvents = ref([]);
 const categories = ref([]);
 const searchbarCategories = ref([]);
 const selectedCountry = ref('');
@@ -468,6 +469,15 @@ const getUpcomingEvents = async () => {
   try {
     const data = await eventService.getUpcomingEvents();
     upEvents.value = data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    // Handle error as needed
+  }
+};
+const getFeaturedEvents = async () => {
+  try {
+    const data = await eventService.getFeaturedEvents();
+    featuredEvents.value = data;
   } catch (error) {
     console.error('Error fetching events:', error);
     // Handle error as needed

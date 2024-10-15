@@ -305,7 +305,13 @@
                       ></span>
                     {{event?.user.phone}}
                     </li> -->
-                    <li>
+                    <li v-if="event?.user.email">
+                      <span
+                        class="fal fa-envelope icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
+                      ></span
+                      ><a :href="'mailto:'+event?.user.email">{{event?.user.email}}</a>
+                    </li>
+                    <li v-if="event?.user.website">
                       <span
                         class="fal fa-external-link icon-element icon-element-sm bg-white shadow-sm text-black me-2 font-size-14"
                       ></span

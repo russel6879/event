@@ -235,9 +235,9 @@
                      :fixed="true"
                   />  
                   
-                  <span v-if="imagePreview" @click="cropImage">Crop Image</span>
+                  <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span><br>
 
-                 <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2" />
+                 <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2 w-50" />
                </div>
              </div>
           

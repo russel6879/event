@@ -46,7 +46,15 @@ export default {
       throw error;
     }
   },
-
+  async getFeaturedEvents() {
+    try {
+      const response = await apiClient.get('/featured-events');
+      return response.data; // Return the featured events data
+    } catch (error) {
+      console.error('Error fetching featured events:', error);
+      throw error; // Rethrow the error for further handling
+    }
+  },
   async getEvent(id) {
     try {
       const response = await apiClient.get(`/events/${id}`);
