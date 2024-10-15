@@ -63,6 +63,7 @@
                   <div class="form-group">
                     <span class="fal fa-calendar-alt form-icon"></span>
                     <select class="form-control form--control" v-model="selectedMonth">
+                      <option value="" disabled>Select a Month</option>
                       <option v-for="month in months" :key="month.value" :value="month.value">
                         {{ month.name }}
                       </option>
@@ -75,6 +76,8 @@
                   <div class="form-group">
                     <!-- <span class="fal fa-calendar-alt form-icon"></span> -->
                     <select class="form-control form--control p-3" v-model="selectedYear">
+                      <option value="" disabled>Year</option>
+
                       <option v-for="year in years" :key="year" :value="year">
                         {{ year }}
                       </option>
@@ -117,6 +120,13 @@
           <span class="badge badge-pill">{{ category.event_count }} Listings</span>
         </NuxtLink>
       </div>
+      <div class="text-center col-lg-2 col-md-4 " v-if="categories.length > 10">
+        <NuxtLink    class="highlight-category highlight-category-3">
+      <button  @click="toggleShowMore" class="btn theme-btn mb-3 mt-3">
+        {{ showMore ? 'Show Less' : 'Show More' }}
+      </button>
+    </NuxtLink>
+    </div>
     </div>
     <!-- end row -->
   </div>
@@ -233,7 +243,7 @@
         </div>
         <div class="row mt-5 d-flex ">
             
-          <div class="col-lg-4 col-md-6" v-for="(event, index) in events" :key="index">
+          <div class="col-lg-4 col-md-6" v-for="(event, index) in upEvents" :key="index">
                 <NuxtLink  :to="`/listing-details/${event.slug}`">
                   <div class="card mb-0 hover-y">
             <a class="card-image">
@@ -404,8 +414,10 @@ import { ref, onMounted } from 'vue'; // Import ref and onMounted from Vue
 import eventService from '@/services/eventService'; // Adjust the path based on your project structure
 import { useRouter } from 'vue-router';
 
-const selectedMonth = ref(new Date().getMonth() + 1);
-const selectedYear = ref(new Date().getFullYear());
+// const selectedMonth = ref(new Date().getMonth() + 1);
+// const selectedYear = ref(new Date().getFullYear());
+const selectedMonth = ref('');
+const selectedYear = ref('');
 const months = [
   { value: 1, name: 'January' },
   { value: 2, name: 'February' },
@@ -428,6 +440,7 @@ const countries = ref([]);
 const searchQuery = ref('');
 const router = useRouter();
 const events = ref([]);
+const upEvents = ref([]);
 const categories = ref([]);
 const searchbarCategories = ref([]);
 const selectedCountry = ref('');
@@ -446,6 +459,15 @@ const getEvents = async () => {
   try {
     const data = await eventService.getEvents();
     events.value = data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    // Handle error as needed
+  }
+};
+const getUpcomingEvents = async () => {
+  try {
+    const data = await eventService.getUpcomingEvents();
+    upEvents.value = data;
   } catch (error) {
     console.error('Error fetching events:', error);
     // Handle error as needed
@@ -489,6 +511,7 @@ onMounted(() => {
     getCategories();
    fetchSearchbarCategories();
    fetchCountries();
+   getUpcomingEvents();
 
 });
 

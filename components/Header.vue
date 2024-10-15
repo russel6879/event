@@ -42,11 +42,11 @@
                   </ul>
                 </li> -->
                 <li>
-                  <a href="#">Pages <span class="fal fa-angle-down"></span></a>
+                  <a href="#">Categories <span class="fal fa-angle-down"></span></a>
                   <ul class="dropdown-menu-item">
                     <!-- <li><a href="user-profile.html">user profile</a></li>
                     <li><a href="top-author.html">top authors </a></li> -->
-                    <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li>
+                    <!-- <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li> -->
                     <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
                     <!-- <li><a href="booking.html">booking </a></li>
                     <li>
@@ -79,9 +79,10 @@
             </nav>
             <div class="nav-right-content d-flex align-items-center">
               <div class="author-access-list author-access-list-black me-3">
-                <NuxtLink to="/login">Login</NuxtLink>
+                <NuxtLink to="/user-dashboard">Dashboard</NuxtLink>
+                <!-- <NuxtLink to="/login">Login</NuxtLink>
                 <span class="or-text">or</span>
-                <NuxtLink to="/signup">Sign Up</NuxtLink>
+                <NuxtLink to="/signup">Sign Up</NuxtLink> -->
               </div>
               <NuxtLink to="/add-listing" class="theme-btn">
                 <span class="fal fa-plus me-1"></span>
@@ -139,10 +140,10 @@
           </li> -->
           <li>
             <a href="#"
-              >Pages <span class="fal fa-angle-down sub-menu-toggler"></span
+              >Categories <span class="fal fa-angle-down sub-menu-toggler"></span
             ></a>
             <ul class="off-canvas-sub-menu">
-              <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li>
+              <!-- <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li> -->
               <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
               <!-- <li><a href="user-profile.html">user profile</a></li>
               <li><a href="top-author.html">top authors </a></li>
@@ -174,8 +175,9 @@
           </li> -->
         </ul>
         <div class="mt-4 text-center">
-                <NuxtLink to="/login" class="theme-btn me-2">Login</NuxtLink>               
-                <NuxtLink to="/signup"  class="theme-btn">Sign Up</NuxtLink>
+                <NuxtLink to="/user-dashboard">Dashboard</NuxtLink>
+                <!-- <NuxtLink to="/login" class="theme-btn me-2">Login</NuxtLink>               
+                <NuxtLink to="/signup"  class="theme-btn">Sign Up</NuxtLink> -->
         </div>
       </div>
       <!-- end off-canvas -->

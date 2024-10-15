@@ -210,17 +210,36 @@
            </div>
            
            <div class="col-lg-12">
-             <div class="form-group">
-               <label class="label-text">Featured Photo <span class="required">*</span></label>
-               <input
-                 class="form-control form--control ps-3"
-                 type="file"
-                 @change="handleFileUpload"
-                 required
-               />
-               <img v-if="imagePreview" :src="imagePreview" class="img-thumbnail mt-2" />
+               <div class="form-group">
+                 <label class="label-text">Featured Photo <span class="required">*</span></label>
+                 <input
+                   class="form-control form--control ps-3"
+                   type="file"
+                   @change="handleFileUpload"
+                   required
+                 />
+                 <cropper
+                  :src="imagePreview"
+                  :stencil-props="{
+                    handlers: {},
+                    movable: false,
+                    resizable: false,
+                    aspectRatio: 2,
+                  }"
+                  :resize-image="{
+                    adjustStencil: false
+                  }"
+                  image-restriction="stencil"
+                  
+                  @change="onCropChange"
+                     :fixed="true"
+                  />  
+                  
+                  <span v-if="imagePreview" @click="cropImage">Crop Image</span>
+
+                 <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2" />
+               </div>
              </div>
-           </div>
           
          </div>
                <!-- end row -->
@@ -228,7 +247,7 @@
              <!-- end card-body -->
            </div>
            <!-- end card -->
-       
+  
            <button class="theme-btn border-0 mt-3" type="submit">
              Submit Listing
            </button>
@@ -248,10 +267,11 @@
    definePageMeta({
   middleware: 'auth'
 })
- import { ref, onMounted, defineAsyncComponent } from 'vue';
+ import { ref, onMounted, defineAsyncComponent,nextTick } from 'vue';
  import Multiselect from 'vue-multiselect';
  import 'vue-multiselect/dist/vue-multiselect.css';
- 
+ import { Cropper } from 'vue-advanced-cropper';
+ import 'vue-advanced-cropper/dist/style.css';
  import eventService from '~/services/eventService';
  import { useNuxtApp } from '#app';
  const selectedCategories = ref([]); // Define selectedCategories here
@@ -275,9 +295,11 @@
    featured_photo: ''
  });
  const imagePreview = ref(null);
+ const croppedImage = ref(null); // Store cropped image
  const description = ref('');
  const editorKey = ref(0);
- 
+ const cropperData = ref(null);
+
  const fetchCountries = async () => {
    try {
      countries.value = await eventService.getCountries();
@@ -327,19 +349,45 @@
    venues.value = [];
  };
  
- const handleFileUpload = (event) => {
-  const file = event.target.files[0];
-  formData.value.featured_photo = file;
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imagePreview.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-};
+//  const handleFileUpload = (event) => {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = (e) => {
+//       imagePreview.value = e.target.result; // Set preview to crop
+//       croppedImage.value = null; // Reset cropped image on new upload
+//     };
+//     reader.readAsDataURL(file);
+//   }
+// };
+ // Reactive references for the cropper
 
- 
+  
+  // Handle file upload
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imagePreview.value = event.target.result; // Load the image into cropper
+      };
+      reader.readAsDataURL(file); // Convert file to base64 data URL
+    }
+  };
+  
+  // Track cropper changes
+  const onCropChange = (data) => {
+    cropperData.value = data;
+
+  };
+  
+  // Crop the image and get the cropped version
+  const cropImage = () => {
+    croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
+    imagePreview.value = croppedImage.value ;
+  };
+
+
  const addEvent = async () => {
    try {
      const eventData = new FormData();

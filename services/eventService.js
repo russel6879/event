@@ -37,6 +37,15 @@ export default {
       throw error;
     }
   },
+  async getUpcomingEvents() {
+    try {
+      const response = await apiClient.get('/upcoming-events');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      throw error;
+    }
+  },
 
   async getEvent(id) {
     try {
