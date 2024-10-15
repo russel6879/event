@@ -121,8 +121,8 @@
         </NuxtLink>
       </div>
       <div class="text-center col-lg-2 col-md-4 " v-if="categories.length > 10">
-        <NuxtLink    class="highlight-category highlight-category-3">
-      <button  @click="toggleShowMore" class="btn theme-btn mb-3 mt-3">
+        <NuxtLink  :to="`/all-categories`"  class="highlight-category highlight-category-3">
+      <button  class="btn theme-btn mb-3 mt-3">
         {{ showMore ? 'Show Less' : 'Show More' }}
       </button>
     </NuxtLink>
