@@ -416,7 +416,7 @@
                   <div class="card mb-0 hover-y">
             <a class="card-image">
               <img
-                :src="`${$config.public.baseURL}/`+blog.featured_photo"
+                :src="`${$config.public.baseURL}`+blog.featured_photo"
                 class="card-img-top"
                 alt="Blog Image"
               />

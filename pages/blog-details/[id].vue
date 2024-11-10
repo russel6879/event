@@ -24,7 +24,7 @@
           <div class="col-lg-8 mb-5">
             <div class="card">
            
-                <img :src="`${$config.public.baseURL}/`+blog?.featured_photo" alt="blog image" class="card-img-top lazy" style="">
+                <img :src="`${$config.public.baseURL}`+blog?.featured_photo" alt="blog image" class="card-img-top lazy" style="">
              
               <div class="card-body">
                 <h2 class="card-title">
@@ -56,7 +56,7 @@
                   <ul class="media-list" >
                     <li class="media media-card" v-for="(latest,index) in latestBlogs" :key="index">
                         <NuxtLink  :to="`/blog-details/${latest.id}`" class="flex-shrink-0 me-3 d-block">
-                        <img :src="`${$config.public.baseURL}/`+latest?.featured_photo" alt="Blog image">
+                        <img :src="`${$config.public.baseURL}`+latest?.featured_photo" alt="Blog image">
                       </NuxtLink>
                       <div class="media-body align-self-center">
                         <h5 class="media-title mb-1">
