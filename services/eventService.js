@@ -89,12 +89,30 @@ export default {
       throw error;
     }
   },
+  async getBlogDetails(id) {
+    try {
+      const response = await apiClient.get(`/blog-details/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching blog with ID ${id}:`, error);
+      throw error;
+    }
+  },
   async getCountries() {
     try {
       const response = await apiClient.get('/countries');  
       return response.data;
     } catch (error) {
       console.error('Error fetching countries:', error);
+      throw error;
+    }
+  },
+  async getBlogs() {
+    try {
+      const response = await apiClient.get('/get-blog');  
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
       throw error;
     }
   },

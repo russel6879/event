@@ -404,6 +404,51 @@
       </div>
       <!-- end container -->
     </section>
+<section class="card-area section--padding">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="sec__title mb-3">News & Articles</h2>
+      
+        </div>
+        <div class="row mt-5 d-flex ">
+          <div class="col-lg-4 col-md-6" v-for="(blog, index) in blogs" :key="index">
+                <NuxtLink  :to="`/blog-details/${blog.id}`">
+                  <div class="card mb-0 hover-y">
+            <a class="card-image">
+              <img
+                :src="`${$config.public.baseURL}/`+blog.featured_photo"
+                class="card-img-top"
+                alt="Blog Image"
+              />
+           
+            </a>
+            <div class="card-body position-relative">
+             
+         
+              <div class="d-flex align-items-center mb-1">
+                <h4 class="card-title mb-0">
+                  <a>{{ blog.title }}</a>
+                </h4>
+                <i
+                  class="fa fa-check-circle ms-1 text-success"
+                  data-bs-toggle="tooltip"
+                  data-placement="top"
+                  title="Claimed"
+                ></i>
+              </div>
+            
+         
+            </div>
+          
+          </div>
+                  </NuxtLink>
+          </div>
+        
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
   </template>
 
 
@@ -440,6 +485,7 @@ const countries = ref([]);
 const searchQuery = ref('');
 const router = useRouter();
 const events = ref([]);
+const blogs = ref([]);
 const upEvents = ref([]);
 const featuredEvents = ref([]);
 const categories = ref([]);
@@ -492,6 +538,14 @@ const fetchCountries = async () => {
   }
 };
 
+const fetchBlog = async () => {
+  try {
+    blogs.value = await eventService.getBlogs();
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+  }
+};
+
 // Fetch categories dynamically
 const fetchSearchbarCategories = async () => {
   try {
@@ -521,6 +575,7 @@ onMounted(() => {
     getCategories();
    fetchSearchbarCategories();
    fetchCountries();
+   fetchBlog();
    getUpcomingEvents();
    getFeaturedEvents();
 

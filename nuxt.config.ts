@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: 'https://event.findthexpo.com/',
+      baseURL: 'https://event.findthexpo.com',
     },
   },
 
