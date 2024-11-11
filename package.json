@@ -16,6 +16,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "@popperjs/core": "^2.11.8",
     "@vueup/vue-quill": "^1.2.0",
+    "@vueuse/head": "^2.0.0",
+    "@vueuse/nuxt": "^11.2.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-select": "^1.13.18",

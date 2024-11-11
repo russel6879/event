@@ -12,7 +12,7 @@
               <ul>
                 <li>
                   <NuxtLink to="/">Home </NuxtLink>
-                
+             
                 </li>
                 <!-- <li>
                   <a href="#"
@@ -62,6 +62,10 @@
                     <li><a href="page-404.html">404 page</a></li>
                     <li><a href="recover.html">recover pass</a></li> -->
                   </ul>
+                </li>
+                <li>
+                  <NuxtLink to="/">News & Articles </NuxtLink>
+             
                 </li>
                 <!-- <li>
                   <a href="#">Blog <span class="fal fa-angle-down"></span></a>
@@ -186,18 +190,45 @@
   
   <script setup>
 import { ref, onMounted } from 'vue';
+import { useHead } from '@vueuse/head';
+const { $config } = useNuxtApp();
 import settingsService from '@/services/settingsService'; // Adjust the path if needed  
   // Define a ref to hold the logo URL
   const logoUrl = ref(''); // Default logo URL in case the API fails
+  const seoSettings = ref(''); // Default logo URL in case the API fails
   
   // Fetch settings data when the component is mounted
   const fetchSettings = async () => {
   try {
     const settings = await settingsService.getSiteSetting('header_settings'); // Fetch settings data
-   
+
     if (settings && settings.value.logo) {
       logoUrl.value = settings.value.logo; // Update the logo URL with the fetched data
     }
+
+    const seoData = await settingsService.getSiteSetting('seo_settings');
+ 
+    if (seoData) {
+      seoSettings.value = seoData.value;
+     
+    }
+
+    // Set page metadata using seoSettings
+    useHead({
+      title: seoSettings.value.metaTitle || 'Default Title',
+      link: [
+        // Dynamically set the favicon with the base URL
+        { rel: 'icon', href: `${$config.public.baseURL}${seoSettings.value.icon || '/default-icon.png'}` }, 
+      ],
+      meta: [
+        { name: 'description', content: seoSettings.value.metaDescription || 'Default description' },
+        { property: 'og:title', content: seoSettings.value.ogTitle || seoSettings.value.metaTitle },
+        { property: 'og:description', content: seoSettings.value.ogDescription || seoSettings.value.metaDescription },
+        { property: 'og:image', content: `${$config.public.baseURL}${seoSettings.value.icon || '/default-icon.png'}`  },
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
+     
+    });
   } catch (error) {
     console.error('Failed to fetch settings:', error);
   }

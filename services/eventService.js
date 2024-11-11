@@ -136,6 +136,16 @@ export default {
       throw error;
     }
   },
+  async getAllBlogs() {
+    try {
+      const response = await apiClient.get('/all-blogs');  
+   
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+      throw error;
+    }
+  },
 
   // Fetch venues by country ID
   async getVenuesByCountry(countryId) {

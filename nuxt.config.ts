@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  buildModules: [
+    '@vueuse/nuxt',
+  ],
   nitro: {
     preset: 'netlify',
   },
@@ -33,11 +36,11 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
         { name: 'author', content: 'TechyDevs' },
         { 'http-equiv': 'X-UA-Compatible', content: 'ie=edge' },
-        { name: 'description', content: 'Dirto - Directory & Listing HTML Template' },
+     
       ],
-      title: 'Dirto - Directory & Listing HTML Template',
+     
       link: [
-        { rel: 'icon', type: 'image/png', href: '/images/favicon.png' },
+        // { rel: 'icon', type: 'image/png', href: '/images/favicon.png' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800&display=swap' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700&display=swap' },
         { rel: 'stylesheet', href: '/css/bootstrap.min.css' },
