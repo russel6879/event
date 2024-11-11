@@ -50,7 +50,7 @@
         </div>
   
         <!-- Pagination for blogs -->
-        <nav  v-if="blogs.data.length > 15" aria-label="Page navigation example" class="mt-5">
+        <nav   aria-label="Page navigation example" class="mt-5">
           <ul class="pagination justify-content-center pagination-list">
             <li class="page-item" :class="{ disabled: !blogs.prev_page_url }">
               <a class="page-link" @click.prevent="changePage(blogs.current_page - 1)" aria-label="Previous">
