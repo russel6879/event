@@ -5,7 +5,7 @@
       <!-- end overlay -->
       <div class="container position-relative z-index-2">
         <div class="hero-heading text-center pt-4">
-          <h3 class="sec__title text-white">Explore Global Events & Exhibitions with Expo Gazette</h3>
+          <h3 class="sec__title text-white">Explore Global Events & Exhibitions in Expo Gazette</h3>
           <p class="sec__desc text-white">
             Please search exhibitions & events using name, country, and category to find the perfect match for your interests.
           </p>
