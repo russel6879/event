@@ -64,7 +64,7 @@
                   </ul>
                 </li>
                 <li>
-                  <NuxtLink to="/">News & Articles </NuxtLink>
+                  <NuxtLink to="/news-article">News & Articles </NuxtLink>
              
                 </li>
                 <!-- <li>
