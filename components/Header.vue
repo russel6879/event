@@ -219,10 +219,6 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
       headerScript.value = scriptsData.value.headerScript || ''; // Set headerScript
   
     }
-    const cleanScript = headerScript.value
-  // Remove outer <script> tags
-  .replace(/^<script[^>]*>/, '')
-  .replace(/<\/script>$/, '');
     // Set page metadata using seoSettings
     useHead({
       title: seoSettings.value.metaTitle || 'Default Title',
@@ -241,8 +237,8 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
         
       headerScript.value ? {
       // Safely inject the JavaScript with raw HTML (using dangerouslySetInnerHTML)
-      innerHTML: cleanScript,
-    
+      innerHTML: headerScript.value.trim(),
+      type: 'application/javascript',
     } : null,
   ].filter(Boolean), // Remove null values
     });
