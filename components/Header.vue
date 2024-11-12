@@ -242,7 +242,7 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
       headerScript.value ? {
       // Safely inject the JavaScript with raw HTML (using dangerouslySetInnerHTML)
       innerHTML: cleanScript,
-      type: 'application/javascript',
+    
     } : null,
   ].filter(Boolean), // Remove null values
     });
