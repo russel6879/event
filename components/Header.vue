@@ -234,11 +234,7 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
       script: [
-      {
-      id: 'respondio__growth_tool',
-      src: 'https://cdn.respond.io/widget/widget.js?wId=26e5346a-1e77-48de-a5e2-a994fe53899d',
-      defer: true // Ensures the script loads after the content
-    },
+        
       headerScript.value ? {
       // Safely inject the JavaScript with raw HTML (using dangerouslySetInnerHTML)
       innerHTML: headerScript.value,
