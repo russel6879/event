@@ -55,12 +55,12 @@
                   <h4 class="card-title mb-3">Latests Posts</h4>
                   <ul class="media-list" >
                     <li class="media media-card" v-for="(latest,index) in latestBlogs" :key="index">
-                        <NuxtLink  :to="`/blog-details/${latest.id}`" class="flex-shrink-0 me-3 d-block">
+                        <NuxtLink  :to="`/blog-details/${latest.slug}`" class="flex-shrink-0 me-3 d-block">
                         <img :src="`${$config.public.baseURL}`+latest?.featured_photo" alt="Blog image">
                       </NuxtLink>
                       <div class="media-body align-self-center">
                         <h5 class="media-title mb-1">
-                            <NuxtLink  :to="`/blog-details/${latest.id}`">{{ latest.title }}</NuxtLink>
+                            <NuxtLink  :to="`/blog-details/${latest.slug}`">{{ latest.title }}</NuxtLink>
                         </h5>
                         <p class="font-size-15">  {{ $formatDate(latest.created_at) }}</p>
                       </div>

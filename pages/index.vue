@@ -412,7 +412,7 @@
         </div>
         <div class="row mt-5 d-flex ">
           <div class="col-lg-4 col-md-6" v-for="(blog, index) in blogs" :key="index">
-                <NuxtLink  :to="`/blog-details/${blog.id}`">
+                <NuxtLink  :to="`/blog-details/${blog.slug}`">
                   <div class="card mb-0 hover-y">
             <a class="card-image">
               <img

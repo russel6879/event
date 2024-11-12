@@ -136,9 +136,11 @@ export default {
       throw error;
     }
   },
-  async getAllBlogs() {
+  async getAllBlogs( page = 1) {
     try {
-      const response = await apiClient.get('/all-blogs');  
+      const response = await apiClient.get('/all-blogs', {
+        params: { page }
+      });  
    
       return response.data;
     } catch (error) {

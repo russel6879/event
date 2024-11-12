@@ -1,5 +1,6 @@
 <template>
      <header class="header-area">
+      <div class="gtranslate_wrapper"></div>
       <div class="main-header py-3 bg-white">
         <div class="container">
           <div class="main-header-action-wrap">
@@ -65,7 +66,7 @@
                 </li>
                 <li>
                   <NuxtLink to="/news-articles">News & Articles </NuxtLink>
-             
+      
                 </li>
                 <!-- <li>
                   <a href="#">Blog <span class="fal fa-angle-down"></span></a>
@@ -196,6 +197,7 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
   // Define a ref to hold the logo URL
   const logoUrl = ref(''); // Default logo URL in case the API fails
   const seoSettings = ref(''); // Default logo URL in case the API fails
+  const headerScript = ref(''); // Default logo URL in case the API fails
   
   // Fetch settings data when the component is mounted
   const fetchSettings = async () => {
@@ -212,7 +214,11 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
       seoSettings.value = seoData.value;
      
     }
-
+    const scriptsData = await settingsService.getSiteSetting('custom_scripts');
+    if (scriptsData?.value) {
+      headerScript.value = scriptsData.value.headerScript || ''; // Set headerScript
+  
+    }
     // Set page metadata using seoSettings
     useHead({
       title: seoSettings.value.metaTitle || 'Default Title',
@@ -227,7 +233,13 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
         { property: 'og:image', content: `${$config.public.baseURL}${seoSettings.value.icon || '/default-icon.png'}`  },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
-     
+      script: [
+      headerScript.value ? {
+      // Safely inject the JavaScript with raw HTML (using dangerouslySetInnerHTML)
+      innerHTML: headerScript.value,
+      type: 'application/javascript',
+    } : null,
+  ].filter(Boolean), // Remove null values
     });
   } catch (error) {
     console.error('Failed to fetch settings:', error);

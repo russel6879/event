@@ -66,6 +66,7 @@
             </NuxtLink>
           </div>
         </div>
+     
         <nav aria-label="Page navigation example" class="mt-5">
           <ul class="pagination justify-content-center pagination-list">
             <li class="page-item" :class="{ disabled: !events.prev_page_url }">
