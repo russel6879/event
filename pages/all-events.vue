@@ -58,9 +58,9 @@
                       <a target="_blank" :href="event?.website_link">{{ event?.website_link }}</a>
                     </li>
                     <li>
-                      <span class="fal fa-calendar icon"></span> {{ event?.event_date_from }}
-                    </li>
-                    <li><span class="fal fa-watch icon"></span> {{ event?.event_time_from }}</li>
+                  <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
+                </li>
+                <li><span class="fal fa-watch icon"></span> {{ $formatTime(event.event_time_from) }} ~  {{ $formatTime(event.event_time_to) }}</li>
                   </ul>
                 </div>
               </div>
