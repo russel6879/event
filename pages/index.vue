@@ -264,7 +264,7 @@
               </a>
               <div class="category-container">
                    
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)":key="id" class="category-item">
+            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)" :key="id" class="category-item">
               <NuxtLink  :to="`/category/${id}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}

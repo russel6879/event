@@ -15,6 +15,14 @@
                   <NuxtLink to="/">Home </NuxtLink>
              
                 </li>
+                <li>
+                  <NuxtLink to="/all-categories">Categories</NuxtLink>
+             
+                </li>
+                <li>
+                  <NuxtLink to="/all-events">All Events</NuxtLink>
+             
+                </li>
                 <!-- <li>
                   <a href="#"
                     >Categories <span class="fal fa-angle-down"></span
@@ -42,28 +50,12 @@
                     <li><a href="add-listing.html">add listing</a></li>
                   </ul>
                 </li> -->
-                <li>
+                <!-- <li>
                   <a href="#">Categories <span class="fal fa-angle-down"></span></a>
                   <ul class="dropdown-menu-item">
-                    <!-- <li><a href="user-profile.html">user profile</a></li>
-                    <li><a href="top-author.html">top authors </a></li> -->
-                    <!-- <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li> -->
-                    <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
-                    <!-- <li><a href="booking.html">booking </a></li>
-                    <li>
-                      <a href="booking-confirmation.html"
-                        >booking confirmation
-                      </a>
-                    </li>
-                    <li><a href="invoice.html">invoice</a></li>
-                    <li><a href="pricing.html">pricing</a></li>
-                    <li><a href="about.html">about</a></li>
-                    <li><a href="faq.html">faq</a></li>
-                    <li><a href="contact.html">contact</a></li>
-                    <li><a href="page-404.html">404 page</a></li>
-                    <li><a href="recover.html">recover pass</a></li> -->
-                  </ul>
-                </li>
+                     <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
+                    </ul>
+                </li> -->
                 <li>
                   <NuxtLink to="/news-articles">News & Articles </NuxtLink>
       
@@ -237,7 +229,7 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
         
       headerScript.value ? {
       // Safely inject the JavaScript with raw HTML (using dangerouslySetInnerHTML)
-      innerHTML: headerScript.value.replace(/<\/?script>/g, ''),
+      innerHTML: headerScript.value,
       type: 'application/javascript',
     } : null,
   ].filter(Boolean), // Remove null values

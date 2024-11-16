@@ -33,6 +33,9 @@
                 <hr class="border-top-gray flex-grow-1" />
                 <hr class="border-top-gray flex-grow-1" />
               </div>
+              <div v-if="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
               <div class="form-group">
                 <label class="label-text">Username or email</label>
                 <input
@@ -76,11 +79,13 @@
                     >Remember Me</label
                   >
                 </div>
-                <a href="/recover" class="btn-link">Forgot password?</a>
+                
+                <nuxt-link to="/recover-password" class="btn-link">Forgot password?</nuxt-link>
               </div>
-              <button class="theme-btn border-0" type="submit">
-                Login Now
-              </button>
+              <button class="theme-btn border-0" type="submit" :disabled="isLoading">
+              <span v-if="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ isLoading ? "Logging in..." : "Login Now" }}
+            </button>
               <p class="mt-3">
                 Not a member?
                 <nuxt-link to="/signup" class="btn-link">Register</nuxt-link>
@@ -103,8 +108,13 @@
   });
   
   const router = useRouter();
-  
+  const errorMessage = ref(""); // Dynamic error message
+  const isLoading = ref(false); // Loading state
+
   const loginUser = async () => {
+    isLoading.value = true;
+    errorMessage.value = ""; // Reset the error message before making the request
+
     try {
       const data = await authService.login(credentials.value);
   
@@ -114,14 +124,15 @@
       // Redirect to the add-listing page
       router.push('/user-dashboard');
     } catch (error) {
-      console.error('Error logging in:', error);
-      useNuxtApp().$toast.error('Failed to login. Please try again.', {
-       autoClose: 5000,
-       theme: "colored",
-       dangerouslyHTMLString: true,
-     })
-     ;
+    // Capture and display dynamic error messages
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage.value = error.response.data.message; // API-provided error message
+    } else {
+      errorMessage.value = "Failed to login. Please try again."; // Fallback message
     }
+  } finally {
+    isLoading.value = false; // Reset loading state
+  }
   };
   </script>
   

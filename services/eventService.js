@@ -37,6 +37,15 @@ export default {
       throw error;
     }
   },
+  async getAllEvents(page = 1) {
+    try {
+      const response = await apiClient.get('/all-events', { params: { page } });
+      return response.data; // Return the paginated events data
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      throw error;
+    }
+  },
   async getUpcomingEvents() {
     try {
       const response = await apiClient.get('/upcoming-events');

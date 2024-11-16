@@ -6,9 +6,9 @@
     <div class="overlay"></div>
     <div class="container">
       <div class="breadcrumb-content text-center">
-        <h2 class="sec__title text-white mb-3">Edit Listing</h2>
+        <h2 class="sec__title text-white mb-3">Edit Listing </h2>
         <ul class="bread-list">
-          <li><a href="index.html">home</a></li>
+          <li><NuxtLink to="/">home</NuxtLink></li>
           <li>listing</li>
           <li>Edit Listing</li>
         </ul>
@@ -35,7 +35,7 @@
             <div class="row mt-4">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="label-text">Title <span class="required">*</span></label>
+                  <label class="label-text">Title {{ event }} <span class="required">*</span></label>
                   <input
                     class="form-control form--control ps-3"
                     type="text"
@@ -86,7 +86,7 @@
                     v-model="formData.venue"
                     required
                   >
-                    <option v-for="venue in venues" :key="venue.id" :value="venue.id">
+                    <option v-for="(venue,index) in venues" :key="index" :value="venue.id" >
                       {{ venue.venue_name }}
                     </option>
                   </select>
@@ -175,7 +175,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label class="label-text">Description <span class="required">*</span></label>
-                  <Editor :key="editorKey" v-model:content="description" />
+                  <Editor :key="editorKey" v-model:content="formData.description" />
                 </div>
               </div>
 
@@ -191,33 +191,42 @@
               </div>
 
               <div class="col-lg-12">
-                <div class="form-group">
-                  <label class="label-text">Featured Photo <span class="required">*</span></label>
-                  <input
-                    class="form-control form--control ps-3"
-                    type="file"
-                    @change="handleFileUpload"
-                    required
-                  />
-                  <cropper
-                    :src="imagePreview"
-                    :stencil-props="{
-                      handlers: {},
-                      movable: false,
-                      resizable: false,
-                      aspectRatio: 2,
-                    }"
-                    :resize-image="{
-                      adjustStencil: false
-                    }"
-                    image-restriction="stencil"
-                    @change="onCropChange"
-                    :fixed="true"
-                  />
-                  <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span>
-                  <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2 w-50" />
-                </div>
-              </div>
+  <div class="form-group">
+    <label class="label-text">Featured Photo <span class="required">*</span></label>
+    <input
+      class="form-control form--control ps-3"
+      type="file"
+      @change="handleFileUpload"
+      
+    />
+    
+    <!-- If imagePreview is set (new image uploaded) show cropper -->
+    <div v-if="imagePreview">
+      <cropper
+        :src="imagePreview"
+        :stencil-props="{
+          handlers: {},
+          movable: false,
+          resizable: false,
+          aspectRatio: 2
+        }"
+        :resize-image="{ adjustStencil: false }"
+        image-restriction="stencil"
+        @change="onCropChange"
+        :fixed="true"
+      />
+      <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span>
+      <br>
+      <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2 w-50" />
+    </div>
+
+    <!-- If no new image uploaded, show the existing image (if available) -->
+    <div v-else-if="formData.featured_photo">
+      <img :src="formData.featured_photo" class="img-thumbnail mt-2 w-50" alt="Existing Featured Image" />
+    
+    </div>
+  </div>
+</div>
             </div>
             <!-- end row -->
           </div>
@@ -233,23 +242,24 @@
     <!-- end container -->
   </section>
   <!-- end edit-listing-area -->
+
+   
 </template>
 
 <script setup>
-import { useRouter, useRoute } from 'vue-router';
-import { ref, defineAsyncComponent, onMounted, computed } from 'vue';
-import eventService from '~/services/eventService'; // Adjust the path based on your project structure
-import { useNuxtApp } from '#app'; // Ensure this import is correct
-
+import { ref, onMounted } from 'vue';
+import Multiselect from 'vue-multiselect';
+import Editor from '~/components/Editor.vue';
+import { useRoute } from 'vue-router';
+import eventService from '~/services/eventService';
+import 'vue-multiselect/dist/vue-multiselect.css';
+import { Cropper } from 'vue-advanced-cropper';
+import 'vue-advanced-cropper/dist/style.css';
+const { $config } = useNuxtApp();
+const baseURL= `${$config.public.baseURL}/`;
 const route = useRoute();
-const router = useRouter();
-const Editor = defineAsyncComponent(() => import('~/components/Editor.vue'));
-
-const description = ref('');
-const editorKey = ref(0);
 const formData = ref({
   title: '',
-  user_id: '', // You need to set this based on your authentication logic
   event_type: '',
   country: '',
   venue: '',
@@ -262,110 +272,163 @@ const formData = ref({
   description: '',
   video_link: '',
   featured_photo: ''
+  
 });
-const imagePreview = ref(null);
 const countries = ref([]);
 const venues = ref([]);
 const categories = ref([]);
 const selectedCategories = ref([]);
 
-// Fetch event data on component mount
-onMounted(async () => {
-  try {
-    const eventId = route.params.id;
-    const event = await eventService.getEvent(eventId); // Get the event data
-    formData.value = { ...event };
-    selectedCategories.value = event.data.categories || [];
-  } catch (error) {
-    console.error('Error fetching event data:', error);
-  }
+const imagePreview = ref('');
+const croppedImage = ref('');
+const cropperData = ref(null);
+const router = useRouter();
 
-  // Fetch other necessary data (countries, categories)
-  fetchCountries();
-  fetchCategories();
-});
+const editorKey = ref(1); // To re-render the editor
+const events = ref([]);
+const search = ref('');
+const headers = ref([
+  { text: 'Event Name', value: 'name' },
+  { text: 'Event Type', value: 'event_type' },
+  { text: 'Status', value: 'status' },
+  { text: 'Actions', value: 'actions', sortable: false }
+]);
+const onCropChange = (data) => {
+    cropperData.value = data;
 
-// Fetch countries from API
+  };
+const cropImage = () => {
+    croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
+    imagePreview.value = croppedImage.value ;
+  };
+const fetchCategories = async () => {
+   try {
+     categories.value = await eventService.getCategories();
+   } catch (error) {
+     console.error('Error fetching categories:', error);
+   }
+ };
+
+ // Fetch countries
 const fetchCountries = async () => {
   try {
-    const response = await eventService.getCountries();
-    countries.value = response.data;
+    countries.value = await eventService.getCountries();
   } catch (error) {
     console.error('Error fetching countries:', error);
   }
 };
-
-// Fetch categories from API
-const fetchCategories = async () => {
+// Fetch event details by ID
+const fetchEventDetails = async () => {
   try {
-    const response = await eventService.getCategories();
-    categories.value = response.data;
+    const eventId = route.params.id;
+    const event = await eventService.getEvent(eventId);
+
+    formData.value = { ...event };
+    const countryId= event.country
+   
+    formData.value.country = parseInt(countryId); // Ensure `event.country` is the ID
+
+       // Convert category IDs to category objects
+       const categoryIds = Array.isArray(event.category) ? event.category : JSON.parse(event.category);
+selectedCategories.value = categories.value.filter(category =>
+  categoryIds.includes(category.id)
+);
+    
+formData.value.featured_photo = baseURL + formData.value.featured_photo;
+if (formData.value.country) {
+      await fetchVenues(); // Call fetchVenues here to populate venues on load
+    }
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error fetching event details:', error);
   }
 };
 
-// Handle file upload for featured photo
-const handleFileUpload = (e) => {
-  const file = e.target.files[0];
-  formData.value.featured_photo = file;
-  imagePreview.value = URL.createObjectURL(file);
-};
 
-// Handle event type change (for conditional fields like location)
-const checkEventType = () => {
-  formData.value.event_type === 'online'
-    ? (showLocationFields.value = false)
-    : (showLocationFields.value = true);
-};
 
-const showLocationFields = ref(true);
+// Fetch venues based on selected country
+const fetchVenues = async () => {
 
-// Handle cropping logic (if you want to integrate an image cropper)
-const onCropChange = (croppedImage) => {
-  // Handle crop changes here
-};
-
-// Crop the image before upload
-const cropImage = () => {
-  // Crop logic here
-  console.log('Cropping image...');
-};
-
-// Update event (submit form)
-const updateEvent = async () => {
   try {
-    const eventData = new FormData();
-    eventData.append('title', formData.value.title);
-    eventData.append('user_id', formData.value.user_id);
-    eventData.append('event_type', formData.value.event_type);
-    eventData.append('country', formData.value.country);
-    eventData.append('venue', formData.value.venue);
-    eventData.append('event_date_from', formData.value.event_date_from);
-    eventData.append('event_date_to', formData.value.event_date_to);
-    eventData.append('event_time_from', formData.value.event_time_from);
-    eventData.append('event_time_to', formData.value.event_time_to);
-    eventData.append('category', selectedCategories.value.join(','));
-    eventData.append('website_link', formData.value.website_link);
-    eventData.append('video_link', formData.value.video_link);
-    eventData.append('description', description.value);
-
-    if (formData.value.featured_photo) {
-      eventData.append('featured_photo', formData.value.featured_photo);
+    if (formData.value.country) {
+     
+      venues.value = await eventService.getVenuesByCountry(formData.value.country);
+ 
+     
     }
+  } catch (error) {
+    console.error('Error fetching venues:', error);
+  }
+};
 
+// Update event handler
+const updateEvent = async () => {
+
+  try {
     const eventId = route.params.id;
-    const response = await eventService.updateEvent(eventId, eventData);
-
-    if (response.data.success) {
-      alert('Event updated successfully!');
-      router.push('/events'); 
-    } else {
-      alert('Failed to update event. Please try again.');
-    }
+     const categoryIds = Array.isArray(selectedCategories.value) 
+      ? selectedCategories.value.map(category => category.id)
+      : [];
+    formData.value.category=JSON.stringify(categoryIds);
+    await eventService.updateEvent(eventId, formData.value);
+    router.push('/user-dashboard');
+    useNuxtApp().$toast.success('Event updated successfully!', {
+       autoClose: 5000,
+       theme: "colored",
+       dangerouslyHTMLString: true,
+     });
+    // Handle success (e.g., redirect or show a success message)
   } catch (error) {
     console.error('Error updating event:', error);
-    alert('An error occurred while updating the event.');
   }
 };
+
+// Handle file upload
+const handleFileUpload = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    formData.value.featured_photo = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagePreview.value = reader.result;
+          formData.value.featured_photo =reader.result
+
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+// Check event type and toggle location fields
+const showLocationFields = computed(() => formData.value.event_type !== 'online');
+
+
+// Reset form handler
+const resetForm = () => {
+  formData.value = {
+    title: '',
+    event_type: '',
+    country: '',
+    venue: '',
+    event_date_from: '',
+    event_date_to: '',
+    event_time_from: '',
+    event_time_to: '',
+    category: [],
+    website_link: '',
+    description: '',
+    video_link: '',
+    featured_photo: ''
+  };
+  selectedCategories.value = [];
+  imagePreview.value = '';
+  // Optionally, reset other states or values as needed
+};
+
+// On mounted, fetch event details and countries
+onMounted(() => {
+  fetchCategories();
+  fetchCountries();
+  fetchEventDetails();
+
+  
+});
 </script>

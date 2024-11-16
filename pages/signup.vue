@@ -42,6 +42,8 @@
               <h4 class="font-size-28 font-weight-semi-bold mb-1">
                 Create an account!
               </h4>
+
+         
               <!-- <p class="card-text">with your social network</p> -->
               <div
                 class="d-flex flex-wrap align-items-center justify-content-between my-4 d-none"
@@ -65,28 +67,30 @@
 
             <!-- Form fields -->
             <div class="form-group">
-              <label class="label-text">Company Name</label>
+              <label class="label-text">Company Name *</label>
               <input
                 v-model="formData.name"
                 class="form-control form--control ps-3"
                 type="text"
                 name="name"
                 placeholder="e.g. Alex"
+                required
               />
             </div>
           
             <div class="form-group">
-              <label class="label-text">Email Address</label>
+              <label class="label-text">Email Address *</label>
               <input
                 v-model="formData.email"
                 class="form-control form--control ps-3"
                 type="email"
                 name="email"
                 placeholder="e.g. you@example.com"
+                required
               />
             </div>
             <div class="form-group">
-              <label class="label-text">Password</label>
+              <label class="label-text">Password *</label>
               <div class="position-relative">
                 <input
                   v-model="formData.password"
@@ -94,6 +98,7 @@
                   type="password"
                   name="password"
                   placeholder="Password"
+                  required
                 />
                 <a
                   href="javascript:void(0)"
@@ -145,7 +150,7 @@
               <input
                 v-model="formData.website"
                 class="form-control form--control ps-3"
-                type="url"
+                type="text"
                 name="website"
                 placeholder="Website"
               />
@@ -174,8 +179,12 @@
                 >
               </div> -->
             </div>
-            <button class="theme-btn border-0" type="submit">
-              Register Account
+            <div v-if="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+            <button class="theme-btn border-0" type="submit" :disabled="isLoading">
+              <span v-if="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ isLoading ? 'Registering...' : 'Register Account' }}
             </button>
             <p class="mt-3">
               Already have an account?
@@ -195,6 +204,10 @@
 <script setup>
 import { ref } from 'vue'
 import authService from '~/services/authService'
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const isLoading = ref(false);
+const errorMessage = ref(''); // To display dynamic error messages
 
 const formData = ref({
   name: '',
@@ -220,6 +233,10 @@ const resetForm = () => {
  
  }
 const signUp = async () => {
+
+  isLoading.value = true;
+  errorMessage.value = ''; // Reset error message before the API call
+
   try {
     const userData = {
       name: formData.value.name,
@@ -231,8 +248,11 @@ const signUp = async () => {
       website: formData.value.website,
     };
 
-    await authService.registerUser(userData);
-
+    const data =  await authService.registerUser(userData);
+    localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('user_id', data.user.id);
+      // Redirect to the add-listing page
+      router.push('/user-dashboard');
     useNuxtApp().$toast.success('User registered successfully!', {
       autoClose: 5000,
       theme: "colored",
@@ -240,9 +260,15 @@ const signUp = async () => {
     });
 
     resetForm(); // Assuming this function resets the form fields after successful registration
-  } catch (error) {
-    console.error('Error registering user:', error);
-    alert('Failed to register user. Please try again.');
+  }  catch (error) {
+    // Handle dynamic errors
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage.value = error.response.data.message; // Display API error message
+    } else {
+      errorMessage.value = 'Failed to register user. Please try again.'; // Fallback error message
+    }
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>

@@ -1,5 +1,3 @@
-// services/authService.js
-
 import axios from 'axios';
 
 const apiClient = axios.create({
@@ -27,6 +25,28 @@ export default {
     return response.data;
   },
 
+  // Method to send OTP for password recovery
+  async recoverPassword(data) {
+    try {
+      const response = await apiClient.post('/send-otp', data); // Make sure this matches your API endpoint
+      return response.data;
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      throw error;
+    }
+  },
+
+  // Method to reset password after OTP validation
+  async resetPassword(data) {
+    try {
+      const response = await apiClient.post('/reset-password', data); // Make sure this matches your API endpoint
+      return response.data;
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      throw error;
+    }
+  },
+
   // Add other authentication-related methods as needed
   async logout() {
     const token = localStorage.getItem('access_token');
@@ -45,39 +65,40 @@ export default {
 
     return response.data;
   },
+
   async getUserProfile() {
     try {
-        if (process.client) { // Check if running on the client-side
-            const token = localStorage.getItem('access_token');
-            if (!token) {
-                throw new Error('Access token not found'); // Handle case where token is missing
-            }
-            apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set Authorization header for authenticated requests
+      if (process.client) { // Check if running on the client-side
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          throw new Error('Access token not found'); // Handle case where token is missing
         }
+        apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set Authorization header for authenticated requests
+      }
 
-        const response = await apiClient.get('/profile');
-        return response.data; // Adjust based on how your API returns profile data
+      const response = await apiClient.get('/profile');
+      return response.data; // Adjust based on how your API returns profile data
     } catch (error) {
-        console.error('Error fetching user profile:', error);
-        throw error; // Ensure error is re-thrown or handled appropriately
+      console.error('Error fetching user profile:', error);
+      throw error; // Ensure error is re-thrown or handled appropriately
     }
-},
+  },
 
-async updateUserProfile(profileData) {
+  async updateUserProfile(profileData) {
     try {
-        if (process.client) {
-            const token = localStorage.getItem('access_token');
-            if (!token) {
-                throw new Error('Access token not found'); // Handle case where token is missing
-            }
-            apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set Authorization header for authenticated requests
+      if (process.client) {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          throw new Error('Access token not found'); // Handle case where token is missing
         }
+        apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set Authorization header for authenticated requests
+      }
 
-        const response = await apiClient.post('/profile', profileData);
-        return response.data; // Adjust based on how your API returns profile data
+      const response = await apiClient.post('/profile', profileData);
+      return response.data; // Adjust based on how your API returns profile data
     } catch (error) {
-        console.error('Error updating user profile:', error);
-        throw error; // Ensure error is re-thrown or handled appropriately
+      console.error('Error updating user profile:', error);
+      throw error; // Ensure error is re-thrown or handled appropriately
     }
-},
+  },
 };
