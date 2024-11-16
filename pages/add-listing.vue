@@ -311,7 +311,7 @@
  const fetchVenues = async () => {
    try {
      const response = await eventService.getVenuesByCountry(formData.value.country);
-     venues.value = response.data;
+     venues.value = response;
    } catch (error) {
      console.error('Error fetching venues:', error);
    }
