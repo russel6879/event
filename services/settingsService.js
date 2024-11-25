@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://event.findthexpo.com/api', // Replace with your API base URL
+  baseURL: '
+  /api', // Replace with your API base URL
   withCredentials: false,
   headers: {
     Accept: 'application/json',
