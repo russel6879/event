@@ -2,8 +2,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '
-  /api', // Replace with your API base URL
+  baseURL: 'https://api.expogazette.com/api', // Replace with your API base URL
   withCredentials: false,
   headers: {
     Accept: 'application/json',
