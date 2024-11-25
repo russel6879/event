@@ -224,6 +224,8 @@ import settingsService from '@/services/settingsService'; // Adjust the path if 
         { property: 'og:description', content: seoSettings.value.ogDescription || seoSettings.value.metaDescription },
         { property: 'og:image', content: `${$config.public.baseURL}${seoSettings.value.icon || '/default-icon.png'}`  },
         { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'keywords', content: seoSettings.value.metaKeywords || 'default, keywords' }, // Add metaKeywords here
+
       ],
       script: [
         

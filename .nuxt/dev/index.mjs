@@ -102,7 +102,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "baseURL": "https://event.findthexpo.com/"
+    "baseURL": "https://api.expogazette.com/"
   }
 };
 const envOptions = {
