@@ -248,9 +248,14 @@
            </div>
            <!-- end card -->
   
-           <button class="theme-btn border-0 mt-3" type="submit">
-             Submit Listing
-           </button>
+           <button 
+    class="theme-btn border-0 mt-3" 
+    type="submit" 
+    :disabled="loading"
+  >
+    <span v-if="loading">Submitting...</span>
+    <span v-else>Submit Listing</span>
+  </button>
          </form>
        </div>
        <!-- end container -->
@@ -275,6 +280,7 @@
  import eventService from '~/services/eventService';
  import { useNuxtApp } from '#app';
  const selectedCategories = ref([]); // Define selectedCategories here
+ const loading = ref(false); // Loading state for the button
 
  const countries = ref([]);
  const venues = ref([]);
@@ -390,6 +396,8 @@
 
  const addEvent = async () => {
    try {
+    loading.value = true; // Start loading when the form is submitted
+
      const eventData = new FormData();
      eventData.append('title', formData.value.title);
      eventData.append('user_id', localStorage.getItem('user_id'));
@@ -418,7 +426,11 @@
      });
  
      resetForm();
+     loading.value = false; // Disable loading once the submission is successful
+
    } catch (error) {
+    loading.value = false; // Disable loading once the submission is successful
+
      console.error('Error adding event:', error);
      alert('Failed to add event. Please try again.');
    }

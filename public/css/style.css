@@ -4865,3 +4865,63 @@ textarea {
 .copy__desc a:hover {
   color: #333f57;
 }
+
+/* new*/
+.category-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
+  gap: 8px; /* Adds space between items */
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+}
+
+.card-cat {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+}
+
+.icon-element {
+  margin-right: 8px;
+}
+
+.card-area .card-deck {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.card-area .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Maintain the same height for all cards */
+}
+
+.card-area .card-body {
+  flex: 1;
+}
+
+.card-area .category-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-area .category-item {
+  margin-right: 10px;
+}
+
+.card-area .card-img-top {
+  height: 250px;
+  object-fit: cover;
+}
+
+@media (max-width: 991.98px) {
+  .card-area .card {
+    flex: 0 0 100%;
+  }
+}

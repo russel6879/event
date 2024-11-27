@@ -17,10 +17,12 @@
           </p>
           <ul class="listing-info my-3">
            
-            <li v-for="(category, index) in event?.category_names" :key="index">
+            <li v-for="(category, id) in event?.category_names" :key="id">
+              <NuxtLink  :to="`/category/${id}`" >
               <span class="theme-btn theme-btn-sm listing-tag"
                 ><i class="fal fa-tag me-1 font-size-13"></i>      {{ category }}</span
               >
+              </NuxtLink>
             </li>
           </ul>
   
@@ -149,7 +151,7 @@
               <!-- end listing-single-panel -->
               <div class="listing-single-panel mb-5">
                 <h4 class="font-size-20 font-weight-semi-bold mb-3">
-                  Location 
+                  Venue:   {{event?.venue.venue_name}}, {{event?.country.name}} 
                 </h4>
                 <div
                   id="map-single"

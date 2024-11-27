@@ -21,7 +21,7 @@
     <section class="card-area section--padding pt-0">
       <div class="container">
         <div class="row mt-5 d-flex">
-          <div class="col-lg-4 col-md-6" v-for="(event, index) in events.data" :key="index">
+          <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in events.data" :key="index">
             <NuxtLink :to="`/listing-details/${event.slug}`">
               <div class="card mb-0 hover-y">
                 <a class="card-image">

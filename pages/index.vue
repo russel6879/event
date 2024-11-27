@@ -243,7 +243,7 @@
         </div>
         <div class="row mt-5 d-flex ">
             
-          <div class="col-lg-4 col-md-6" v-for="(event, index) in upEvents" :key="index">
+          <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in upEvents" :key="index">
                 <NuxtLink  :to="`/listing-details/${event.slug}`">
                   <div class="card mb-0 hover-y">
             <a class="card-image">
@@ -327,7 +327,7 @@
       
         </div>
         <div class="row mt-5 d-flex ">
-          <div class="col-lg-4 col-md-6" v-for="(event, index) in events" :key="index">
+          <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in events" :key="index">
                 <NuxtLink  :to="`/listing-details/${event.slug}`">
                   <div class="card mb-0 hover-y">
             <a class="card-image">
@@ -411,7 +411,7 @@
       
         </div>
         <div class="row mt-5 d-flex ">
-          <div class="col-lg-4 col-md-6" v-for="(blog, index) in blogs" :key="index">
+          <div class="col-lg-4 col-md-6 mt-5" v-for="(blog, index) in blogs" :key="index">
                 <NuxtLink  :to="`/blog-details/${blog.slug}`">
                   <div class="card mb-0 hover-y">
             <a class="card-image">
@@ -585,27 +585,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.category-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
-  gap: 8px; /* Adds space between items */
-}
 
-.category-item {
-  display: flex;
-  align-items: center;
-}
-
-.card-cat {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  text-decoration: none;
-  color: #333;
-}
-
-.icon-element {
-  margin-right: 8px;
-}
 /* Add your custom styles here */
 </style>

@@ -119,7 +119,7 @@
               </a>
               <div class="category-container">
                    
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)":key="id" class="category-item">
+            <div  v-for="([id, category]) in Object.entries(event?.category_names).slice(0, 2)":key="id" class="category-item">
               <NuxtLink  :to="`/category/${id}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
@@ -137,7 +137,7 @@
                   title="Claimed"
                 ></i>
               </div>
-              <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
+              <p class="card-text">{{ event?.venue?.venue_name }}, {{ event?.country?.name }}</p>
               <ul class="info-list mt-3">
                 <!-- <li><span class="fal fa-phone icon"></span> {{ event.phone }}</li> -->
                 <!-- <li>

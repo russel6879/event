@@ -20,7 +20,7 @@
   <section class="card-area section--padding pt-0">
     <div class="container">
       <div class="row mt-5 d-flex">
-        <div class="col-lg-4 col-md-6" v-for="(blog, index) in blogs.data || []" :key="blog.id || index">
+        <div class="col-lg-4 col-md-6 mt-5" v-for="(blog, index) in blogs.data || []" :key="blog.id || index">
           <NuxtLink :to="blog.slug ? `/blog-details/${blog.slug}` : '#'">
             <div class="card mb-0 hover-y">
               <a class="card-image">
