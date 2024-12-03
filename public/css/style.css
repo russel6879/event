@@ -3807,7 +3807,7 @@ pre {
 
 /*======= category-item ==========*/
 .category-item {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -4870,7 +4870,7 @@ textarea {
 .category-container {
   display: flex;
   flex-wrap: wrap; /* Allows wrapping to the next line if necessary */
-  gap: 8px; /* Adds space between items */
+  /* gap: 8px;  */
 }
 
 .category-item {
@@ -4912,7 +4912,7 @@ textarea {
 }
 
 .card-area .category-item {
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .card-area .card-img-top {

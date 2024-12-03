@@ -53,10 +53,10 @@
                   </div>
                   <p class="card-text">{{ event?.venue?.venue_name }}, {{ event?.country?.name }}</p>
                   <ul class="info-list mt-3">
-                    <li>
+                    <!-- <li>
                       <span class="fal fa-link icon"></span>
                       <a target="_blank" :href="event?.website_link">{{ event?.website_link }}</a>
-                    </li>
+                    </li> -->
                     <li>
                   <span class="fal fa-calendar icon"></span> {{ $formatDate(event?.event_date_from) }} ~ {{ $formatDate(event?.event_date_to) }}
                 </li>
