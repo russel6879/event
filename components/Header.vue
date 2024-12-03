@@ -106,9 +106,32 @@
         <!-- end off-canvas-close -->
         <ul class="off-canvas-menu padding-top-60px">
           <li>
-            <NuxtLink to="/">Home</NuxtLink>
-           
-          </li>
+                  <NuxtLink to="/">Home </NuxtLink>
+             
+                </li>
+                <li>
+                  <NuxtLink to="/all-categories">Categories</NuxtLink>
+             
+                </li>
+                <li>
+                  <NuxtLink to="/all-events">All Events</NuxtLink>
+             
+                </li>
+                <li>
+                  <NuxtLink to="/news-articles">News & Articles </NuxtLink>
+      
+                </li>
+                <li>
+                  <NuxtLink to="/user-dashboard">Dashboard</NuxtLink>
+      
+                </li>
+                <li>
+                  <NuxtLink to="/add-listing" class="theme-btn text-white">
+                <span class="fal fa-plus me-1 text-white"></span>
+                Add Listing
+              </NuxtLink >
+      
+                </li>
           <!-- <li>
             <a href="#"
               >Categories
@@ -135,29 +158,7 @@
               <li><a href="add-listing.html">Add listing</a></li>
             </ul>
           </li> -->
-          <li>
-            <a href="#"
-              >Categories <span class="fal fa-angle-down sub-menu-toggler"></span
-            ></a>
-            <ul class="off-canvas-sub-menu">
-              <!-- <li><NuxtLink to="/user-dashboard">dashboard</NuxtLink></li> -->
-              <li><NuxtLink to="/all-categories">All Categories</NuxtLink></li>
-              <!-- <li><a href="user-profile.html">user profile</a></li>
-              <li><a href="top-author.html">top authors </a></li>
-              <li><a href="dashboard.html">dashboard</a></li>
-              <li><a href="booking.html">booking </a></li>
-              <li>
-                <a href="booking-confirmation.html">booking confirmation </a>
-              </li>
-              <li><a href="invoice.html">invoice</a></li>
-              <li><a href="pricing.html">pricing</a></li>
-              <li><a href="about.html">about</a></li>
-              <li><a href="faq.html">faq</a></li>
-              <li><a href="contact.html">contact</a></li>
-              <li><a href="page-404.html">404 page</a></li>
-              <li><a href="recover.html">recover pass</a></li> -->
-            </ul>
-          </li>
+       
           <!-- <li>
             <a href="#"
               >blog <span class="fal fa-angle-down sub-menu-toggler"></span
@@ -171,11 +172,10 @@
             </ul>
           </li> -->
         </ul>
-        <div class="mt-4 text-center">
+        <!-- <div class="mt-4 text-center">
                 <NuxtLink to="/user-dashboard">Dashboard</NuxtLink>
-                <!-- <NuxtLink to="/login" class="theme-btn me-2">Login</NuxtLink>               
-                <NuxtLink to="/signup"  class="theme-btn">Sign Up</NuxtLink> -->
-        </div>
+          
+        </div> -->
       </div>
       <!-- end off-canvas -->
     </header>

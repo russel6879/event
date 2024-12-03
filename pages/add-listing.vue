@@ -7,9 +7,9 @@
        <!-- end overlay -->
        <div class="container">
          <div class="breadcrumb-content text-center">
-          <li><NuxtLink to="/">Home</NuxtLink></li>
+        
            <ul class="bread-list">
-             <li><a href="index.html">home</a></li>
+             <li><NuxtLink to="/">Home</NuxtLink></li>
              <li>listing</li>
              <li>Add Listing</li>
            </ul>

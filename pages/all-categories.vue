@@ -26,7 +26,7 @@
         <h2 class="sec__title text-center">What do you need to find?</h2>
         <div class="row mt-5">
           <div v-for="(category, index) in categories" :key="category.id" class="col-lg-2 col-md-4 mb-4">
-            <NuxtLink :to="`/category/${category.id}`" class="highlight-category highlight-category-3">
+            <NuxtLink :to="`/category/${category.slug}`" class="highlight-category highlight-category-3">
               <span :class="`fal ${category.icon} icon-element icon-element-bg-slim-${(index % 10) + 1} d-block mx-auto mb-2`"></span>
               <span class="highlight-cat-title">{{ category.name }}</span>
               <span class="badge badge-pill">{{ category.event_count }} Listings</span>

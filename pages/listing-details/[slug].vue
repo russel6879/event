@@ -17,8 +17,8 @@
           </p>
           <ul class="listing-info my-3">
            
-            <li v-for="(category, id) in event?.category_names" :key="id">
-              <NuxtLink  :to="`/category/${id}`" >
+            <li v-for="(category,  slug) in event?.category_names" :key="slug">
+              <NuxtLink  :to="`/category/${slug}`" >
               <span class="theme-btn theme-btn-sm listing-tag"
                 ><i class="fal fa-tag me-1 font-size-13"></i>      {{ category }}</span
               >

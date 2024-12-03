@@ -37,12 +37,13 @@
                     <img :src="`${$config.public.baseURL}/` + event?.user?.profile_image" alt="Author Image" />
                   </a>
                   <div class="category-container">
-                    
-                    <div v-for="(category, index) in event?.category_names ? Object.values(event.category_names).slice(0, 2) : []" :key="index" class="category-item">
-                        <NuxtLink  :to="`/category/${id}`"  class="card-cat">
+                    <div v-if="event?.category_names"> 
+                    <div v-for="([slug, category]) in  Object.entries(event?.category_names).slice(0, 2)" :key="slug" class="category-item">
+                        <NuxtLink  :to="`/category/${slug}`"  class="card-cat">
                         <span class="fal fa-tag icon-element icon-element-sm"></span>
                         {{ category }}
                     </NuxtLink>
+                    </div>
                     </div>
                   </div>
                   <div class="d-flex align-items-center mb-1">

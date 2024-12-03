@@ -114,7 +114,7 @@
     <h2 class="sec__title text-center">What do you need to find?</h2>
     <div class="row mt-5">
       <div v-for="(category, index) in categories" :key="category.name" class="col-lg-2 col-md-4 ">
-         <NuxtLink  :to="`/category/${category.id}`"  class="highlight-category highlight-category-3">
+         <NuxtLink  :to="`/category/${category.slug}`"  class="highlight-category highlight-category-3">
           <span :class="`fal ${category.icon} icon-element icon-element-bg-slim-${index + 1}  d-block mx-auto mb-2`"></span>
           <span class="highlight-cat-title">{{ category.name }}</span>
           <span class="badge badge-pill">{{ category.event_count }} Listings</span>
@@ -178,8 +178,8 @@
               </a>
               <div class="category-container">
               
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)" :key="id" class="category-item">
-              <NuxtLink  :to="`/category/${id}`"  class="card-cat">
+            <div  v-for="([slug, category]) in Object.entries(event.category_names).slice(0, 2)" :key="slug" class="category-item">
+              <NuxtLink  :to="`/category/${slug}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
               </NuxtLink>
@@ -264,8 +264,8 @@
               </a>
               <div class="category-container">
                    
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)" :key="id" class="category-item">
-              <NuxtLink  :to="`/category/${id}`"  class="card-cat">
+            <div  v-for="([slug, category]) in Object.entries(event.category_names).slice(0, 2)" :key="slug" class="category-item">
+              <NuxtLink  :to="`/category/${slug}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
               </NuxtLink>
@@ -348,8 +348,8 @@
               </a>
               <div class="category-container">
                   
-            <div  v-for="([id, category]) in Object.entries(event.category_names).slice(0, 2)":key="id" class="category-item">
-              <NuxtLink  :to="`/category/${id}`"  class="card-cat">
+            <div  v-for="([slug, category]) in Object.entries(event.category_names).slice(0, 2)" :key="slug" class="category-item">
+              <NuxtLink  :to="`/category/${slug}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
               </NuxtLink>

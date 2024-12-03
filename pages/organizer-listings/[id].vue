@@ -37,12 +37,12 @@
                     <img :src="`${$config.public.baseURL}/` + event.user.profile_image" alt="Author Image" />
                   </a>
                   <div class="category-container">
-                    <div v-for="(category, index) in event.category_names.slice(0, 2)" :key="index" class="category-item">
-                      <NuxtLink  :to="`/category/${id}`"  class="card-cat">
-                        <span class="fal fa-tag icon-element icon-element-sm"></span>
-                        {{ category }}
-                      </NuxtLink>
-                    </div>
+                    <div  v-for="([slug, category]) in Object.entries(event.category_names).slice(0, 2)" :key="slug" class="category-item">
+              <NuxtLink  :to="`/category/${slug}`"  class="card-cat">
+                <span class="fal fa-tag icon-element icon-element-sm"></span>
+                {{ category }}
+              </NuxtLink>
+            </div>
                   </div>
                   <div class="d-flex align-items-center mb-1">
                     <h4 class="card-title mb-0">
@@ -52,10 +52,10 @@
                   </div>
                   <p class="card-text">{{ event.venue.venue_name }}, {{ event.country.name }}</p>
                   <ul class="info-list mt-3">
-                    <li>
+                    <!-- <li>
                       <span class="fal fa-link icon"></span>
                       <a target="_blank" :href="event.website_link">{{ event.website_link }}</a>
-                    </li>
+                    </li> -->
                     <li>
                   <span class="fal fa-calendar icon"></span> {{ $formatDate(event.event_date_from) }} ~ {{ $formatDate(event.event_date_to) }}
                 </li>
