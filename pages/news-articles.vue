@@ -34,7 +34,7 @@
                 <h4 class="card-title mb-0">
                   <a>{{ blog.title || 'Untitled' }}</a>
                 </h4>
-                <p class="card-text">{{ blog.excerpt || 'No excerpt available' }}</p>
+                <!-- <p class="card-text">{{ blog.excerpt || 'No excerpt available' }}</p> -->
               </div>
             </div>
           </NuxtLink>

@@ -56,12 +56,10 @@
               <h4 class="footer__title mb-3">Categories</h4>
                            <div class="stroke-shape mb-4"></div>
               <ul class="list-items list-items-underline">
-                <li><a href="#">Shops</a></li>
-                <li><a href="#">Hotels</a></li>
-                <li><a href="#">Restaurants</a></li>
-                <li><a href="#">Bars</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Fitness</a></li>
+                <li><NuxtLink to="/category/healthcare-medical">Healthcare & Medical</NuxtLink></li>
+        <li><NuxtLink to="/category/textile-apparel">Textile & Apparel</NuxtLink></li>
+        <li><NuxtLink to="/category/automotive">Automotive</NuxtLink></li>
+        <li><NuxtLink to="/category/food-beverage">Food & Beverage</NuxtLink></li>
               </ul>
             </div>
             <!-- end footer-item -->
@@ -72,16 +70,18 @@
               <h4 class="footer__title mb-3">Contact with Us</h4>
               <div class="stroke-shape mb-4"></div>
               <ul class="info-list">
-                <li>
+                <li v-if="footerSetting.contactInfo?.address">
                   <span class="fal fa-home icon me-2"></span>  {{footerSetting.contactInfo?.address}}
                 </li>
-                <li>
+                <li v-if="footerSetting.contactInfo?.phone">
                   <span class="fal fa-headphones icon me-2"></span>
                   <a href="#"> {{footerSetting.contactInfo?.phone}}</a>
                 </li>
-                <li>
+                <li v-if="footerSetting.contactInfo?.email">
                   <span class="fal fa-envelope icon me-2"></span>
-                  <a href="#"> {{footerSetting.contactInfo?.email}}</a>
+                  <a :href="'mailto:' + footerSetting.contactInfo?.email">
+                   {{ footerSetting.contactInfo?.email }}
+                  </a>
                 </li>
               </ul>
             </div>
