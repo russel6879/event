@@ -20,6 +20,7 @@
   
     <section class="card-area section--padding pt-0">
       <div class="container">
+        <p>{{ userDescription }}</p>
         <div class="row mt-5 d-flex">
           <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in events.data" :key="index">
             <NuxtLink :to="`/listing-details/${event.slug}`">
@@ -97,6 +98,7 @@
   
   const events = ref({ data: [], prev_page_url: null, next_page_url: null, current_page: 1, last_page: 1 });
   const userName = ref(''); // To store the user's name
+  const userDescription = ref(''); 
   const route = useRoute(); // Use to access the dynamic route parameter
   
   const getUserEvents = async (page = 1) => {
@@ -105,6 +107,7 @@
       const data = await eventService.getEventsByUser(userId, page); // Fetch events by user and page
       events.value = data.data; // Update the events object with API response
       userName.value = data.user_name; // Assuming API returns user name
+      userDescription.value= data.user_description;
     } catch (error) {
       console.error('Error fetching user events:', error);
     }

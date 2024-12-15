@@ -147,6 +147,7 @@
 
               <div class="col-lg-12">
                 <div class="form-control">
+                 
                   <label class="label-text">Category <span class="required">*</span></label>
                   <multiselect
                     v-model="selectedCategories"
@@ -279,6 +280,7 @@ const venues = ref([]);
 const categories = ref([]);
 const selectedCategories = ref([]);
 
+
 const imagePreview = ref('');
 const croppedImage = ref('');
 const cropperData = ref(null);
@@ -327,13 +329,14 @@ const fetchEventDetails = async () => {
     const countryId= event.country
    
     formData.value.country = parseInt(countryId); // Ensure `event.country` is the ID
+   
+    await fetchCategories(); 
 
        // Convert category IDs to category objects
-       const categoryIds = Array.isArray(event.category) ? event.category : JSON.parse(event.category);
-selectedCategories.value = categories.value.filter(category =>
+       const    categoryIds = Array.isArray(event.category) ? event.category : JSON.parse(event.category);
+        selectedCategories.value =categories.value.filter(category =>
   categoryIds.includes(category.id)
 );
-    
 formData.value.featured_photo = baseURL + formData.value.featured_photo;
 if (formData.value.country) {
       await fetchVenues(); // Call fetchVenues here to populate venues on load
