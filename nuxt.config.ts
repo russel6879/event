@@ -41,8 +41,7 @@ export default defineNuxtConfig({
      
       link: [
         // { rel: 'icon', type: 'image/png', href: '/images/favicon.png' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800&display=swap' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700&display=swap' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap' },
         { rel: 'stylesheet', href: '/css/bootstrap.min.css' },
         { rel: 'stylesheet', href: '/css/select2.min.css' },
         { rel: 'stylesheet', href: '/css/font-awesome.min.css' },

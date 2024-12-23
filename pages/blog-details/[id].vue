@@ -30,7 +30,7 @@
                 <h2 class="card-title">
                     {{blog?.title}}
                 </h2>
-                <p  v-html="blog?.description" class="text-justify"></p>
+                <div v-html="blog?.description" class="text-justify"></div>
               
               </div>
               <!-- end card-body -->
@@ -116,5 +116,20 @@
   .text-justify{
     text-align: justify;
   }
+ .text-justify > ul {
+  padding-left: 20px !important;  /* Reset global padding and add indentation */
+  list-style-type: disc !important;  /* Set bullet points */
+  margin: 0 !important;  /* Remove any margin from ul */
+}
 
+/* Target the li elements inside .text-justify */
+.text-justify > ul > li {
+  padding-left: 20px !important; /* Indentation for list items */
+  margin-bottom: 10px !important; /* Spacing between list items */
+}
+
+/* Optional: Align the text inside li to justify */
+.text-justify li.ql-align-justify {
+  text-align: justify;
+}
   </style>

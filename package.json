@@ -21,6 +21,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-select": "^1.13.18",
+    "dompurify": "^3.2.3",
     "jquery": "^3.7.1",
     "nuxt": "^3.11.2",
     "nuxt-swiper": "^1.2.2",

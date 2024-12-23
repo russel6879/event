@@ -465,7 +465,7 @@ const fetchEventDetails = async () => {
     const currentEventId = data.id; // Assuming category_ids is available
     const relatedData = await eventService.getRelatedEvents(categoryIds, currentEventId);
     relatedEvents.value = relatedData;
- console.log(relatedData)
+    console.log(relatedData)
  
   } catch (err) {
     error.value = err.message; // Handle any errors
