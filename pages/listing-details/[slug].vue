@@ -57,7 +57,7 @@
                 <h4 class="font-size-20 font-weight-semi-bold mb-3">
                   Description
                 </h4>
-                <p  v-html="event?.description"></p>
+                <div  v-html="event?.description" class="text-content"></div>
             
               </div>
               <!-- end listing-single-panel -->
@@ -477,5 +477,15 @@ onMounted(fetchEventDetails);
 </script>
 
 <style scoped>
+.text-content * {
+  text-align: justify;
+  color: black !important; /* Specify your desired style */
+}
+.text-content >>> ul {
+  padding-left: 54px !important;
+  list-style-type: disc !important;
+}
+
+
 /* Add any styling here */
 </style>
