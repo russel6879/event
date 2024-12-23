@@ -156,15 +156,15 @@
                 <div
                   id="map-single"
             
-                  class="w-100 height-300"
+                  class="w-100 height-300 "
                 >
                 <p class="mb-3">{{ event?.venue.description }}</p> 
-               <iframe :src="event?.venue.google_map_link" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+               <iframe   :src="event?.venue.google_map_link" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              
                 </div>
               
               </div>
-          
-          
+         
               <!-- end listing-single-panel -->
             </div>
             <!-- end listing-wrapper -->
@@ -173,7 +173,7 @@
           <div class="col-lg-4">
             <div class="sidebar">
               <div
-                class="author-verified bg-success p-3 rounded text-white text-center mb-4"
+                class="author-verified bg-success p-3 rounded text-white text-center mb-4 d-none d-sm-block"
                 data-bs-toggle="tooltip"
                 data-placement="top"
                 title="Listing has been verified and belongs the business owner or manager"
@@ -341,9 +341,9 @@
     <!-- ================================
     START CARD AREA
 ================================= -->
-    <section class="card-area bg-gray section-padding">
+    <section class="card-area bg-gray section-padding" v-if="relatedEvents.length > 0">
       <div class="container">
-        <h4 class="font-size-25 font-weight-semi-bold mb-5">People Also Viewed</h4>
+        <h4 class="font-size-25 font-weight-semi-bold mb-5">Related Events</h4>
      
         <Swiper
     v-if="relatedEvents.length > 0"
