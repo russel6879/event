@@ -1,11 +1,11 @@
 <template>
- <section class="breadcrumb-area bread-bg py-5">
+ <section class="breadcrumb-area bread-bg ">
       <div class="overlay"></div>
       <!-- end overlay -->
       <div class="container">
         <div class="breadcrumb-content text-center">
         
-          <h2 class="sec__title text-white mb-3">Dashboard</h2>
+         
           <h2 class="sec__title text-white mb-3">Dashboard</h2>
           <ul class="bread-list">
             <li><NuxtLink to="/">home</NuxtLink></li>
@@ -14,6 +14,13 @@
           </ul>
         </div>
         <!-- end breadcrumb-content -->
+      </div>
+      <div class="bread-svg">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+          <path
+            d="M-4.22,89.30 C280.19,26.14 324.21,125.81 511.00,41.94 L500.00,150.00 L0.00,150.00 Z"
+          ></path>
+        </svg>
       </div>
       <!-- end container -->
     </section>
@@ -104,7 +111,7 @@
             <a class="card-image">
               <img
                 :src="`${$config.public.baseURL}/`+event.featured_photo"
-                class="card-img-top"
+                class="card-img-top-v1"
                 alt="Event Image"
               />
               <span class="badge  badge-pill"    :class="{
@@ -119,7 +126,7 @@
               </a>
               <div class="category-container">
                    
-            <div  v-for="([id, category]) in Object.entries(event?.category_names).slice(0, 2)":key="id" class="category-item">
+            <div  v-for="([id, category]) in Object.entries(event?.category_names).slice(0, 2)" :key="id" class="category-item">
               <NuxtLink  :to="`/category/${id}`"  class="card-cat">
                 <span class="fal fa-tag icon-element icon-element-sm"></span>
                 {{ category }}
@@ -525,6 +532,30 @@ const deleteEvent = async (id) => {
 
 .icon-element {
   margin-right: 8px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-body {
+  flex-grow: 1;
+}
+.card-image {
+  position: relative;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.card-image .card-img-top-v1 {
+  height: 250px;
+  object-fit: cover;
+}
+.card-image .card-img-top-v1 {
+  width: 100%;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 /* Add your custom styles here */
 </style>

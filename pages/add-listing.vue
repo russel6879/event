@@ -218,7 +218,7 @@
                    @change="handleFileUpload"
                    required
                  />
-                 <cropper
+                 <!-- <cropper
                   :src="imagePreview"
                   :stencil-props="{
                     handlers: {},
@@ -233,11 +233,11 @@
                   
                   @change="onCropChange"
                      :fixed="true"
-                  />  
+                  />   -->
                   
-                  <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span><br>
+                  <!-- <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span><br> -->
 
-                 <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2 w-50" />
+                 <img v-if="imagePreview" :src="imagePreview" class="img-thumbnail mt-2 w-50" />
                </div>
              </div>
           
@@ -301,7 +301,7 @@
    featured_photo: ''
  });
  const imagePreview = ref(null);
- const croppedImage = ref(null); // Store cropped image
+//  const croppedImage = ref(null); 
  const description = ref('');
  const editorKey = ref(0);
  const cropperData = ref(null);
@@ -382,16 +382,16 @@
   };
   
   // Track cropper changes
-  const onCropChange = (data) => {
-    cropperData.value = data;
+  // const onCropChange = (data) => {
+  //   cropperData.value = data;
 
-  };
+  // };
   
   // Crop the image and get the cropped version
-  const cropImage = () => {
-    croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
-    imagePreview.value = croppedImage.value ;
-  };
+  // const cropImage = () => {
+  //   croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
+  //   imagePreview.value = croppedImage.value ;
+  // };
 
 
  const addEvent = async () => {

@@ -203,7 +203,7 @@
     
     <!-- If imagePreview is set (new image uploaded) show cropper -->
     <div v-if="imagePreview">
-      <cropper
+      <!-- <cropper
         :src="imagePreview"
         :stencil-props="{
           handlers: {},
@@ -217,8 +217,8 @@
         :fixed="true"
       />
       <span class="btn btn-secondary mt-2" v-if="imagePreview" @click="cropImage">Crop Image</span>
-      <br>
-      <img v-if="croppedImage" :src="croppedImage" class="img-thumbnail mt-2 w-50" />
+      <br> -->
+      <img v-if="imagePreview" :src="imagePreview" class="img-thumbnail mt-2 w-50" />
     </div>
 
     <!-- If no new image uploaded, show the existing image (if available) -->
@@ -282,7 +282,7 @@ const selectedCategories = ref([]);
 
 
 const imagePreview = ref('');
-const croppedImage = ref('');
+// const croppedImage = ref('');
 const cropperData = ref(null);
 const router = useRouter();
 
@@ -295,14 +295,14 @@ const headers = ref([
   { text: 'Status', value: 'status' },
   { text: 'Actions', value: 'actions', sortable: false }
 ]);
-const onCropChange = (data) => {
-    cropperData.value = data;
+// const onCropChange = (data) => {
+//     cropperData.value = data;
 
-  };
-const cropImage = () => {
-    croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
-    imagePreview.value = croppedImage.value ;
-  };
+//   };
+// const cropImage = () => {
+//     croppedImage.value = cropperData.value.canvas.toDataURL('image/png');
+//     imagePreview.value = croppedImage.value ;
+//   };
 const fetchCategories = async () => {
    try {
      categories.value = await eventService.getCategories();
