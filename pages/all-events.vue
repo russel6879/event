@@ -21,7 +21,7 @@
     <section class="card-area section--padding pt-0">
       <div class="container">
         <div class="row mt-5 d-flex">
-          <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in events" :key="index">
+          <div class="col-lg-4 col-md-6 mt-5" v-for="(event, index) in events.data" :key="index">
             <NuxtLink :to="`/listing-details/${event?.slug}`">
               <div class="card mb-0 hover-y">
                 <a class="card-image">
@@ -68,8 +68,10 @@
             </NuxtLink>
           </div>
         </div>
-    
-        <nav v-if="events.data && events.data.length > 15" aria-label="Page navigation example" class="mt-5">
+
+        
+
+        <nav v-if="events.data && events.data.length > 14" aria-label="Page navigation example" class="mt-5">
           <ul class="pagination justify-content-center pagination-list">
             <li class="page-item" :class="{ disabled: !events.prev_page_url }">
               <a class="page-link" @click.prevent="changePage(events.current_page - 1)" aria-label="Previous">
@@ -103,7 +105,7 @@
   const getAllEvents = async (page = 1) => {
     try {
       const data = await eventService.getAllEvents(page); // Fetch all events
-      events.value = data.data; // Update the events object with API response
+      events.value = data; // Update the events object with API response
     } catch (error) {
       console.error('Error fetching events:', error);
     }
