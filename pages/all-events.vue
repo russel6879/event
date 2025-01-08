@@ -69,9 +69,9 @@
           </div>
         </div>
 
-        
 
-        <nav v-if="events.data && events.data.length > 14" aria-label="Page navigation example" class="mt-5">
+
+        <nav v-if="events.data && events.total > 15" aria-label="Page navigation example" class="mt-5">
           <ul class="pagination justify-content-center pagination-list">
             <li class="page-item" :class="{ disabled: !events.prev_page_url }">
               <a class="page-link" @click.prevent="changePage(events.current_page - 1)" aria-label="Previous">
